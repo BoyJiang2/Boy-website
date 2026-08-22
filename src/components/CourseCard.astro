@@ -1,0 +1,31 @@
+---
+import TagList from './TagList.astro';
+
+interface Props {
+  entry: {
+    id: string;
+    data: {
+      title: string;
+      summary: string;
+      course: string;
+      period: string;
+      duration: string;
+      tags: string[];
+      order: number;
+    };
+  };
+}
+
+const { entry } = Astro.props;
+---
+
+<a class="note-card course-card" href={`/courses/${entry.id}/`}>
+  <span class="card-number">{String(entry.data.order).padStart(2, '0')}</span>
+  <div class="card-copy">
+    <p class="eyebrow">{entry.data.course} · {entry.data.period}</p>
+    <h3>{entry.data.title}</h3>
+    <p>{entry.data.summary}</p>
+    <TagList tags={entry.data.tags} />
+  </div>
+  <span class="card-meta">{entry.data.duration} <span aria-hidden="true">↗</span></span>
+</a>

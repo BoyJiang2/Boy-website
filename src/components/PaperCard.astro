@@ -1,0 +1,34 @@
+---
+import TagList from './TagList.astro';
+
+interface Props {
+  entry: {
+    id: string;
+    data: {
+      title: string;
+      authors: string;
+      venue: string;
+      year: number;
+      summary: string;
+      tags: string[];
+      status: string;
+    };
+  };
+}
+
+const { entry } = Astro.props;
+---
+
+<a class="note-card paper-card" href={`/papers/${entry.id}/`}>
+  <div class="paper-topline">
+    <span class={`status status-${entry.data.status}`}>{entry.data.status}</span>
+    <span>{entry.data.year}</span>
+  </div>
+  <h3>{entry.data.title}</h3>
+  <p class="paper-authors">{entry.data.authors}</p>
+  <p>{entry.data.summary}</p>
+  <div class="paper-bottomline">
+    <TagList tags={entry.data.tags} />
+    <span>{entry.data.venue} ↗</span>
+  </div>
+</a>

@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import PaperCard from '../../components/PaperCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const papers = (await getCollection('papers')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="论文阅读 · Notes Atlas">
+  <section class="listing-hero">
+    <p class="eyebrow">PAPER TRAIL</p>
+    <h1>论文不是终点，<br />而是<em>新的问题</em>。</h1>
+    <p>保留论文为什么重要、它解决了什么，以及我仍然没有想明白的地方。</p>
+  </section>
+  <div class="paper-grid full-grid">
+    {papers.map((entry) => <PaperCard entry={entry} />)}
+  </div>
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+title: Attention Is All You Need
+authors: Ashish Vaswani et al.
+venue: NeurIPS
+year: 2017
+summary: 用自注意力替代循环与卷积，让序列模型获得并行训练能力与更短的信息路径。
+tags: [Transformer, Attention, NLP]
+status: 读完
+order: 1
+---
+
+## 它改变了什么
+
+核心并不只是 Attention，而是把序列建模拆成可并行的表示变换，并用位置编码补回顺序信息。
+
+## 我的理解
+
+多头机制可以看成把“该看哪里”拆成多个子空间的投票。每个头都只是一种软路由，但组合后获得了更丰富的关系表示。
+
+## 继续追问
+
+当上下文长度上升时，二次复杂度到底在多大程度上限制了这种设计？

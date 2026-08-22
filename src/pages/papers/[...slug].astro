@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import TagList from '../../components/TagList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('papers');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} · Notes Atlas`} description={entry.data.summary}>
+  <article class="reading-layout">
+    <a class="back-link" href="/papers/">← 返回论文索引</a>
+    <header class="article-hero">
+      <p class="eyebrow">{entry.data.venue} · {entry.data.year} · {entry.data.status}</p>
+      <h1>{entry.data.title}</h1>
+      <p class="paper-authors">{entry.data.authors}</p>
+      <p>{entry.data.summary}</p>
+      <div class="article-meta"><TagList tags={entry.data.tags} /><span>{entry.data.status}</span></div>
+    </header>
+    <div class="article-shell">
+      <aside>
+        <span>READING</span>
+        <strong>{String(entry.data.order).padStart(2, '0')}</strong>
+      </aside>
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>

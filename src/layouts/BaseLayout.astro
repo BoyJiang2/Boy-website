@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Notes Atlas',
+  description = '课程、论文与思考的个人知识库。',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#101318" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <header class="site-header container">
+      <a class="brand" href="/" aria-label="Notes Atlas 首页">
+        <span class="brand-mark">N.</span>
+        <span>Notes Atlas</span>
+      </a>
+      <nav aria-label="主导航">
+        <a href="/courses/">课程</a>
+        <a href="/papers/">论文</a>
+        <a href="#about">关于</a>
+      </nav>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="container site-footer">
+      <span>Notes Atlas · 由 Markdown 驱动</span>
+      <span>持续学习，持续公开。</span>
+    </footer>
+  </body>
+</html>
