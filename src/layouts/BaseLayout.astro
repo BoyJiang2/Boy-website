@@ -7,9 +7,16 @@ interface Props {
 }
 
 const {
-  title = 'Notes Atlas',
-  description = '课程、论文与思考的个人知识库。',
+  title = "Boy Jiang — Notes, projects and thoughts",
+  description = '记录学习、项目与日常思考的个人网站。',
 } = Astro.props;
+const pathname = Astro.url.pathname;
+const nav = [
+  { href: '/blog/', label: '博客' },
+  { href: '/projects/', label: '项目' },
+  { href: '/notes/', label: '笔记' },
+  { href: '/about/', label: '关于' },
+];
 ---
 
 <!doctype html>
@@ -18,29 +25,30 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#101318" />
+    <meta name="theme-color" content="#fbfcfa" />
+    <link rel="icon" href="/favicon.svg" />
     <title>{title}</title>
   </head>
   <body>
-    <div class="ambient ambient-one"></div>
-    <div class="ambient ambient-two"></div>
-    <header class="site-header container">
-      <a class="brand" href="/" aria-label="Notes Atlas 首页">
-        <span class="brand-mark">N.</span>
-        <span>Notes Atlas</span>
+    <div class="flow-ribbon" aria-hidden="true"></div>
+    <header class="site-header shell">
+      <a class="wordmark" href="/" aria-label="返回首页">
+        <span class="wordmark-dot"></span>
+        <span>Boy Jiang</span>
       </a>
       <nav aria-label="主导航">
-        <a href="/courses/">课程</a>
-        <a href="/papers/">论文</a>
-        <a href="#about">关于</a>
+        {nav.map((item) => (
+          <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}>{item.label}</a>
+        ))}
       </nav>
     </header>
-    <main class="container">
+    <main>
       <slot />
     </main>
-    <footer class="container site-footer">
-      <span>Notes Atlas · 由 Markdown 驱动</span>
-      <span>持续学习，持续公开。</span>
+    <footer class="site-footer shell">
+      <span>© 2026 Boy Jiang</span>
+      <span>用 Markdown 写作 · 用 Astro 构建</span>
+      <a href="https://github.com/BoyJiang2" rel="noreferrer">GitHub ↗</a>
     </footer>
   </body>
 </html>

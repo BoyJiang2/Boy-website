@@ -1,31 +1,46 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const courses = defineCollection({
-  loader: glob({ base: './src/content/courses', pattern: '**/*.{md,mdx}' }),
+const shared = {
+  title: z.string(),
+  summary: z.string(),
+  published: z.coerce.date(),
+  updated: z.coerce.date().optional(),
+  tags: z.array(z.string()).default([]),
+  draft: z.boolean().default(false),
+};
+
+const blog = defineCollection({
+  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({ ...shared, category: z.string().default('随笔') }),
+});
+
+const projects = defineCollection({
+  loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    course: z.string(),
-    period: z.string(),
-    duration: z.string(),
-    tags: z.array(z.string()).default([]),
-    order: z.number(),
+    ...shared,
+    status: z.string().default('进行中'),
+    link: z.string().optional(),
+    repo: z.string().optional(),
+    order: z.number().default(99),
   }),
 });
 
-const papers = defineCollection({
-  loader: glob({ base: './src/content/papers', pattern: '**/*.{md,mdx}' }),
+const notes = defineCollection({
+  loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
-    title: z.string(),
-    authors: z.string(),
-    venue: z.string(),
-    year: z.number(),
-    summary: z.string(),
-    tags: z.array(z.string()).default([]),
-    status: z.enum(['读完', '精读中', '待读']).default('待读'),
-    order: z.number(),
+    ...shared,
+    type: z.enum(['课程', '论文', '技术', '工具']).default('技术'),
+    series: z.string().optional(),
+    order: z.number().default(99),
+    course: z.string().optional(),
+    period: z.string().optional(),
+    duration: z.string().optional(),
+    authors: z.string().optional(),
+    venue: z.string().optional(),
+    year: z.number().optional(),
+    status: z.string().optional(),
   }),
 });
 
-export const collections = { courses, papers };
+export const collections = { blog, projects, notes };

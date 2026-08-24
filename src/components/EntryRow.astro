@@ -1,0 +1,28 @@
+---
+interface Props {
+  href: string;
+  eyebrow: string;
+  title: string;
+  summary: string;
+  date: Date;
+  tags?: string[];
+}
+
+const { href, eyebrow, title, summary, date, tags = [] } = Astro.props;
+const formatted = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric', month: 'short', day: 'numeric',
+}).format(date);
+---
+
+<article class="entry-row">
+  <div class="entry-meta">
+    <span>{eyebrow}</span>
+    <time datetime={date.toISOString()}>{formatted}</time>
+  </div>
+  <div class="entry-body">
+    <h3><a href={href}>{title}</a></h3>
+    <p>{summary}</p>
+    {tags.length > 0 && <div class="tag-line">{tags.map((tag) => <span>#{tag}</span>)}</div>}
+  </div>
+  <a class="entry-arrow" href={href} aria-label={`阅读 ${title}`}>↗</a>
+</article>

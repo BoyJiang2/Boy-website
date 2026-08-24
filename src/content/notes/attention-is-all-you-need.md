@@ -1,5 +1,10 @@
 ---
 title: Attention Is All You Need
+published: 2026-08-16
+updated: 2026-08-20
+type: 论文
+series: Transformer 经典论文
+draft: false
 authors: Ashish Vaswani et al.
 venue: NeurIPS
 year: 2017

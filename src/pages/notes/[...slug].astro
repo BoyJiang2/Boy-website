@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export async function getStaticPaths() {
+  const entries = await getCollection('notes', ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry, entries } }));
+}
+const { entry, entries } = Astro.props;
+const { Content, headings } = await render(entry);
+const sorted = [...entries].sort((a, b) => a.data.type.localeCompare(b.data.type, 'zh-CN') || a.data.order - b.data.order);
+const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(entry.data.updated ?? entry.data.published);
+---
+
+<BaseLayout title={`${entry.data.title} — 笔记`} description={entry.data.summary}>
+  <article class="article-wrap">
+    <a class="article-back" href="/notes/">← 返回笔记</a>
+    <header class="article-header">
+      <p class="page-kicker">{entry.data.type}{entry.data.series ? ` · ${entry.data.series}` : ''}</p>
+      <h1>{entry.data.title}</h1>
+      {entry.data.authors && <p>{entry.data.authors}</p>}
+      <p>{entry.data.summary}</p>
+      <div class="article-byline"><span>更新于 {date}</span>{entry.data.duration && <span>{entry.data.duration}</span>}<span>{entry.data.tags.join(' · ')}</span></div>
+    </header>
+    <div class="docs-layout">
+      <aside class="docs-sidebar">
+        <strong>全部笔记</strong>
+        <nav>
+          {sorted.map((item) => <a class:list={[item.id === entry.id && 'current']} href={`/notes/${item.id}/`}><small>{item.data.type}</small><br />{item.data.title}</a>)}
+        </nav>
+      </aside>
+      <div class="prose"><Content /></div>
+      <aside class="article-toc">
+        <strong>本页目录</strong>
+        {headings.length > 0 ? <ol>{headings.filter((heading) => heading.depth <= 3).map((heading) => <li class={`depth-${heading.depth}`}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol> : <span>暂无小节</span>}
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+interface Props {
+  entry: {
+    id: string;
+    data: {
+      title: string;
+      summary: string;
+      status: string;
+      tags: string[];
+      repo?: string;
+      link?: string;
+    };
+  };
+}
+const { entry } = Astro.props;
+---
+
+<article class="project-card">
+  <div class="project-status"><span></span>{entry.data.status}</div>
+  <h3><a href={`/projects/${entry.id}/`}>{entry.data.title}</a></h3>
+  <p>{entry.data.summary}</p>
+  <div class="project-tags">{entry.data.tags.map((tag) => <span>{tag}</span>)}</div>
+  <div class="project-links">
+    <a href={`/projects/${entry.id}/`}>查看项目 →</a>
+    {entry.data.repo && <a href={entry.data.repo} rel="noreferrer">源码 ↗</a>}
+    {entry.data.link && <a href={entry.data.link} rel="noreferrer">访问 ↗</a>}
+  </div>
+</article>

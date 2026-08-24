@@ -1,5 +1,9 @@
 ---
 title: Scaling Laws for Neural Language Models
+published: 2026-08-20
+type: 论文
+series: Scaling Laws
+draft: false
 authors: Jared Kaplan et al.
 venue: arXiv
 year: 2020

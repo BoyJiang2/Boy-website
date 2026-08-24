@@ -1,6 +1,6 @@
-# Notes Atlas
+# Boy's Notes Website
 
-一个面向课程、论文与个人展示的 Astro 静态网站原型。内容放在 Markdown/MDX 文件中，不需要数据库。
+明亮、简洁的个人网站，包含博客、项目、笔记与关于四个栏目。使用 Astro 构建，内容存放为 Markdown/MDX，不需要数据库。
 
 ## 本地运行
 
@@ -9,28 +9,48 @@ npm install
 npm run dev
 ```
 
-打开终端显示的本地地址。生产构建使用：
+生产构建：
 
 ```bash
 npm run build
 ```
 
-构建产物位于 `dist/`，可直接部署到 Cloudflare Pages、Vercel 或 GitHub Pages。
+## 内容放在哪里
 
-## 写一篇新笔记
+```text
+src/content/
+├─ blog/       # 所思所想、随笔与观点
+├─ projects/   # 项目介绍与复盘
+└─ notes/      # 课程、论文、技术、工具笔记
+```
 
-在下列目录新增 `.md` 或 `.mdx` 文件即可：
+新增内容时，可以复制同目录中的现有 `.md` 文件，修改顶部 frontmatter 和正文。课程与论文不再是独立栏目，通过笔记的 `type` 和 `series` 字段组织。
 
-- `src/content/courses/`：课程专题
-- `src/content/papers/`：论文阅读
+图片、PDF 和其他附件放入 `public/uploads/`，在 Markdown 中使用：
 
-每份文件顶部有 frontmatter（标题、标签、时间等字段），可复制现有示例再修改。首页和索引页会自动读取并展示它们。
+```md
+![图片说明](/uploads/example.png)
+[下载 PDF](/uploads/example.pdf)
+```
 
-## 上线到 Cloudflare Pages
+## 在浏览器中写作和上传附件
 
-1. 把本目录推送到 GitHub 仓库。
-2. 在 Cloudflare Pages 新建项目并连接该仓库。
-3. 构建命令填写 `npm run build`，输出目录填写 `dist`。
-4. 首次部署成功后绑定自己的域名。
+仓库根目录提供了 `.pages.yml`，可直接连接 Pages CMS：
 
-`astro.config.mjs` 中的 `site` 请改成正式域名，以获得正确的 sitemap、canonical URL 等站点元信息。
+1. 打开 <https://app.pagescms.org/> 并使用 GitHub 登录。
+2. 为 `BoyJiang2/Boy-s-notes-website` 安装 Pages CMS GitHub App。
+3. 选择仓库与 `main` 分支。
+4. 在“博客 / 项目 / 笔记”中使用可视化编辑器新建内容。
+5. 图片与附件会保存到 `public/uploads/`；保存时直接提交到 GitHub。
+
+Pages CMS 只是 GitHub 文件的编辑界面，内容仍保存在本仓库中。部署平台连接 GitHub 后，每次保存都会自动触发重新构建。
+
+## 部署
+
+Cloudflare Pages 或 Vercel 均可：
+
+- 构建命令：`npm run build`
+- 输出目录：`dist`
+- Node.js：20 或更高版本
+
+部署前将 `astro.config.mjs` 中的 `site` 改成正式域名。

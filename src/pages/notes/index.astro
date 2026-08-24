@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const entries = (await getCollection('notes', ({ data }) => !data.draft)).sort((a, b) => {
+  if (a.data.type !== b.data.type) return a.data.type.localeCompare(b.data.type, 'zh-CN');
+  return a.data.order - b.data.order;
+});
+const types = ['全部', ...new Set(entries.map((entry) => entry.data.type))];
+---
+
+<BaseLayout title="笔记 — Boy Jiang" description="课程、论文与技术学习笔记。">
+  <header class="page-head shell">
+    <p class="page-kicker">Notes</p>
+    <h1>笔记</h1>
+    <p class="section-description">课程、论文和技术主题都归档在这里。可以按分类筛选，也可以直接搜索标题、摘要和标签。</p>
+  </header>
+  <section class="content-shell shell">
+    <div class="filter-bar">
+      <label class="search-box"><input id="notes-search" type="search" placeholder="搜索笔记…" autocomplete="off" /></label>
+      {types.map((type, index) => <button class:list={['filter-button', index === 0 && 'active']} data-filter={type}>{type}</button>)}
+    </div>
+    <div class="entry-list" id="notes-list">
+      {entries.map((entry) => {
+        const searchable = `${entry.data.title} ${entry.data.summary} ${entry.data.tags.join(' ')} ${entry.data.series ?? ''}`.toLowerCase();
+        const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' }).format(entry.data.updated ?? entry.data.published);
+        return (
+          <article class="entry-row note-search-item" data-type={entry.data.type} data-search={searchable}>
+            <div class="entry-meta"><span>{entry.data.type}</span><time>{date}</time></div>
+            <div class="entry-body"><h3><a href={`/notes/${entry.id}/`}>{entry.data.title}</a></h3><p>{entry.data.summary}</p><div class="tag-line">{entry.data.tags.map((tag) => <span>#{tag}</span>)}</div></div>
+            <a class="entry-arrow" href={`/notes/${entry.id}/`} aria-label={`阅读 ${entry.data.title}`}>↗</a>
+          </article>
+        );
+      })}
+    </div>
+    <div class="empty-state" id="notes-empty">没有找到匹配的笔记。</div>
+  </section>
+  <script is:inline>
+    const input = document.querySelector('#notes-search');
+    const buttons = [...document.querySelectorAll('[data-filter]')];
+    const items = [...document.querySelectorAll('.note-search-item')];
+    const empty = document.querySelector('#notes-empty');
+    let activeType = '全部';
+    const update = () => {
+      const query = input.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const matchesType = activeType === '全部' || item.dataset.type === activeType;
+        const matchesQuery = !query || item.dataset.search.includes(query);
+        item.hidden = !(matchesType && matchesQuery);
+        if (!item.hidden) visible += 1;
+      });
+      empty.style.display = visible ? 'none' : 'block';
+    };
+    input.addEventListener('input', update);
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      activeType = button.dataset.filter;
+      buttons.forEach((candidate) => candidate.classList.toggle('active', candidate === button));
+      update();
+    }));
+  </script>
+</BaseLayout>

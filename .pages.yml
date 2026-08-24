@@ -1,0 +1,62 @@
+media:
+  - name: uploads
+    label: 图片与附件
+    input: public/uploads
+    output: /uploads
+    categories: [image, document, video, audio, code, spreadsheet]
+
+content:
+  - name: blog
+    label: 博客
+    type: collection
+    path: src/content/blog
+    fields:
+      - { name: title, label: 标题, type: string }
+      - { name: summary, label: 摘要, type: text }
+      - { name: published, label: 发布日期, type: date, options: { format: yyyy-MM-dd } }
+      - { name: updated, label: 更新日期, type: date, default: "", options: { format: yyyy-MM-dd } }
+      - { name: category, label: 分类, type: select, options: { values: [随笔, 技术, 建站, 生活] } }
+      - { name: tags, label: 标签, type: select, options: { multiple: true, values: [学习, 写作, Astro, Markdown, 工作流, AI, 系统, 工具] } }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - name: body
+        label: 正文
+        type: rich-text
+        options: { format: markdown, media: uploads, rename: true, switcher: true }
+  - name: projects
+    label: 项目
+    type: collection
+    path: src/content/projects
+    fields:
+      - { name: title, label: 项目名称, type: string }
+      - { name: summary, label: 摘要, type: text }
+      - { name: published, label: 发布日期, type: date, options: { format: yyyy-MM-dd } }
+      - { name: updated, label: 更新日期, type: date, default: "", options: { format: yyyy-MM-dd } }
+      - { name: status, label: 状态, type: select, options: { values: [规划中, 进行中, 持续建设, 已完成] } }
+      - { name: repo, label: GitHub 地址, type: string, default: "" }
+      - { name: link, label: 项目地址, type: string, default: "" }
+      - { name: order, label: 排序, type: number, default: 99 }
+      - { name: tags, label: 标签, type: select, options: { multiple: true, values: [Astro, MDX, AI, 系统, 工具, Content Design] } }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: body, label: 正文, type: rich-text, options: { format: markdown, media: uploads, rename: true, switcher: true } }
+  - name: notes
+    label: 笔记
+    type: collection
+    path: src/content/notes
+    fields:
+      - { name: title, label: 标题, type: string }
+      - { name: summary, label: 摘要, type: text }
+      - { name: published, label: 发布日期, type: date, options: { format: yyyy-MM-dd } }
+      - { name: updated, label: 更新日期, type: date, default: "", options: { format: yyyy-MM-dd } }
+      - { name: type, label: 类型, type: select, options: { values: [课程, 论文, 技术, 工具] } }
+      - { name: series, label: 系列或课程, type: string, default: "" }
+      - { name: order, label: 系列内排序, type: number, default: 99 }
+      - { name: status, label: 阅读状态, type: string, default: "" }
+      - { name: tags, label: 标签, type: select, options: { multiple: true, values: [网络, TCP, 系统, LLM, 分布式训练, GPU, 操作系统, xv6, RISC-V, Transformer, Attention, NLP, IO-Aware, Scaling, Empirical Study, AI, 工具] } }
+      - { name: draft, label: 草稿, type: boolean, default: false }
+      - { name: body, label: 正文, type: rich-text, options: { format: markdown, media: uploads, rename: true, switcher: true } }
+
+settings:
+  commit:
+    templates:
+      create: "content: create {collection} {slug}"
+      update: "content: update {collection} {slug}"

@@ -1,5 +1,9 @@
 ---
 title: "FlashAttention: Fast and Memory-Efficient Exact Attention"
+published: 2026-08-18
+type: 论文
+series: 高效大模型系统
+draft: false
 authors: Tri Dao et al.
 venue: NeurIPS
 year: 2022
