@@ -12,16 +12,22 @@ const {
   description = '记录学习、项目与日常思考的个人网站。',
 } = Astro.props;
 const pathname = Astro.url.pathname;
-const nav = [
+const primaryNav = [
   { href: '/blog/', label: '博客', icon: '✦' },
   { href: '/projects/', label: '项目', icon: '◇' },
   { href: '/notes/', label: '笔记', icon: '☘' },
-  { href: '/about/', label: '关于', icon: '☻' },
+  { href: '/search/', label: '搜索', icon: '⌕' },
+];
+const themes = [
+  { value: 'midnight-gold', label: 'Midnight Gold', note: '午夜金' },
+  { value: 'professional-dark', label: 'Professional Dark', note: '专业深色' },
+  { value: 'glassmorphism-light', label: 'Glassmorphism Light', note: '玻璃浅色' },
+  { value: 'dark-neon', label: 'Dark Neon', note: '暗色霓虹' },
 ];
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="midnight-gold">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,30 +35,36 @@ const nav = [
     <meta name="theme-color" content="#fbfcfa" />
     <link rel="icon" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('boy-jiang-theme');
+        const allowed = ['midnight-gold', 'professional-dark', 'glassmorphism-light', 'dark-neon'];
+        if (saved && allowed.includes(saved)) document.documentElement.dataset.theme = saved;
+      } catch {}
+    </script>
   </head>
   <body>
     <div class="flow-ribbon" aria-hidden="true"></div>
     <header class="site-header shell">
-      <div class="header-start">
-        <details class="quick-index">
-          <summary><span aria-hidden="true">⌘</span><span>索引</span></summary>
-          <div class="quick-index-panel">
-            <p>去哪里看看？</p>
-            <a href="/"><span>⌂</span><span><strong>首页</strong><small>从这里重新出发</small></span></a>
-            {nav.map((item) => (
-              <a href={item.href}><span>{item.icon}</span><span><strong>{item.label}</strong><small>{item.label === '博客' ? '所思所想' : item.label === '项目' ? '正在创造' : item.label === '笔记' ? '课程与论文' : '关于我'}</small></span></a>
+      <a class="wordmark" href="/" aria-label="返回首页">Boy Jiang</a>
+      <nav aria-label="主导航">
+        {primaryNav.map((item) => (
+          <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}><span aria-hidden="true">{item.icon}</span><span class="nav-label">{item.label}</span></a>
+        ))}
+        <details class="theme-picker">
+          <summary><span aria-hidden="true">◐</span><span class="nav-label">主题</span></summary>
+          <div class="theme-panel">
+            <p>选择阅读氛围</p>
+            {themes.map((theme) => (
+              <button type="button" data-theme-value={theme.value}>
+                <span class={`theme-swatch ${theme.value}`} aria-hidden="true"></span>
+                <span><strong>{theme.label}</strong><small>{theme.note}</small></span>
+                <span class="theme-check" aria-hidden="true">✓</span>
+              </button>
             ))}
           </div>
         </details>
-        <a class="wordmark" href="/" aria-label="返回首页">
-          <span class="wordmark-dot"></span>
-          <span>Boy Jiang</span>
-        </a>
-      </div>
-      <nav aria-label="主导航">
-        {nav.map((item) => (
-          <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}><span aria-hidden="true">{item.icon}</span>{item.label}</a>
-        ))}
+        <a class:list={[pathname.startsWith('/about/') && 'active']} href="/about/"><span aria-hidden="true">☻</span><span class="nav-label">关于</span></a>
       </nav>
     </header>
     <main>
@@ -64,12 +76,23 @@ const nav = [
       <a href="https://github.com/BoyJiang2" rel="noreferrer">GitHub ↗</a>
     </footer>
     <script is:inline>
-      const quickIndex = document.querySelector('.quick-index');
+      const themePicker = document.querySelector('.theme-picker');
+      const themeButtons = [...document.querySelectorAll('[data-theme-value]')];
+      const setTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        themeButtons.forEach((button) => button.classList.toggle('selected', button.dataset.themeValue === theme));
+        try { localStorage.setItem('boy-jiang-theme', theme); } catch {}
+      };
+      setTheme(document.documentElement.dataset.theme || 'midnight-gold');
+      themeButtons.forEach((button) => button.addEventListener('click', () => {
+        setTheme(button.dataset.themeValue);
+        themePicker?.removeAttribute('open');
+      }));
       document.addEventListener('click', (event) => {
-        if (quickIndex?.open && !quickIndex.contains(event.target)) quickIndex.removeAttribute('open');
+        if (themePicker?.open && !themePicker.contains(event.target)) themePicker.removeAttribute('open');
       });
       document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') quickIndex?.removeAttribute('open');
+        if (event.key === 'Escape') themePicker?.removeAttribute('open');
       });
     </script>
   </body>

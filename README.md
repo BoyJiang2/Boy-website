@@ -2,6 +2,8 @@
 
 明亮、简洁的个人网站，包含博客、项目、笔记与关于四个栏目。使用 Astro 构建，内容存放为 Markdown/MDX，不需要数据库。
 
+顶部“搜索”会统一检索博客、项目和笔记；“主题”提供 Midnight Gold、Professional Dark、Glassmorphism Light 与 Dark Neon 四种阅读配色，并在浏览器中记住选择。
+
 ## 本地运行
 
 ```bash

@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const blogs = await getCollection('blog', ({ data }) => !data.draft);
+const projects = await getCollection('projects', ({ data }) => !data.draft);
+const notes = await getCollection('notes', ({ data }) => !data.draft);
+
+const items = [
+  ...blogs.map((entry) => ({
+    title: entry.data.title,
+    summary: entry.data.summary,
+    href: `/blog/${entry.id}/`,
+    kind: '博客',
+    icon: '✦',
+    detail: entry.data.category,
+    date: entry.data.updated ?? entry.data.published,
+    search: [entry.data.title, entry.data.summary, entry.data.category, ...entry.data.tags].join(' ').toLowerCase(),
+  })),
+  ...projects.map((entry) => ({
+    title: entry.data.title,
+    summary: entry.data.summary,
+    href: `/projects/${entry.id}/`,
+    kind: '项目',
+    icon: '◇',
+    detail: entry.data.status,
+    date: entry.data.updated ?? entry.data.published,
+    search: [entry.data.title, entry.data.summary, entry.data.status, ...entry.data.tags].join(' ').toLowerCase(),
+  })),
+  ...notes.map((entry) => ({
+    title: entry.data.title,
+    summary: entry.data.summary,
+    href: `/notes/${entry.id}/`,
+    kind: '笔记',
+    icon: '☘',
+    detail: [entry.data.type, entry.data.series].filter(Boolean).join(' · '),
+    date: entry.data.updated ?? entry.data.published,
+    search: [entry.data.title, entry.data.summary, entry.data.type, entry.data.series ?? '', ...entry.data.tags].join(' ').toLowerCase(),
+  })),
+].sort((a, b) => b.date.valueOf() - a.date.valueOf());
+---
+
+<BaseLayout title="搜索 — Boy Jiang" description="搜索博客、项目和笔记。">
+  <header class="page-head shell search-head">
+    <p class="page-kicker">Search everything</p>
+    <h1><span class="page-title-icon" aria-hidden="true">⌕</span>搜索</h1>
+    <p class="section-description">博客、项目和笔记放在同一个入口里。输入标题、摘要、分类或标签即可寻找。</p>
+  </header>
+  <section class="content-shell shell">
+    <div class="global-search">
+      <label for="global-search-input">想找什么？</label>
+      <div class="global-search-control">
+        <span aria-hidden="true">⌕</span>
+        <input id="global-search-input" type="search" placeholder="例如：CS336、Transformer、写作…" autocomplete="off" autofocus />
+        <kbd>/</kbd>
+      </div>
+      <p id="search-count">共 {items.length} 条内容</p>
+    </div>
+    <div class="search-results" id="global-search-results">
+      {items.map((item) => (
+        <article class="search-result" data-search={item.search}>
+          <div class="search-result-icon" aria-hidden="true">{item.icon}</div>
+          <div>
+            <p><span>{item.kind}</span>{item.detail && ` · ${item.detail}`}</p>
+            <h2><a href={item.href}>{item.title}</a></h2>
+            <div>{item.summary}</div>
+          </div>
+          <a class="entry-arrow" href={item.href} aria-label={`打开 ${item.title}`}>↗</a>
+        </article>
+      ))}
+    </div>
+    <div class="empty-state" id="global-search-empty">没有找到匹配内容，换个词试试。</div>
+  </section>
+  <script is:inline>
+    const input = document.querySelector('#global-search-input');
+    const results = [...document.querySelectorAll('.search-result')];
+    const count = document.querySelector('#search-count');
+    const empty = document.querySelector('#global-search-empty');
+    const update = () => {
+      const query = input.value.trim().toLowerCase();
+      let visible = 0;
+      results.forEach((result) => {
+        const matches = !query || result.dataset.search.includes(query);
+        result.hidden = !matches;
+        if (matches) visible += 1;
+      });
+      count.textContent = query ? `找到 ${visible} 条内容` : `共 ${results.length} 条内容`;
+      empty.style.display = visible ? 'none' : 'block';
+    };
+    input.addEventListener('input', update);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === '/' && document.activeElement !== input) {
+        event.preventDefault();
+        input.focus();
+      }
+    });
+  </script>
+</BaseLayout>
