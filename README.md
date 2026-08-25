@@ -32,6 +32,17 @@ src/content/
 - 笔记按 `type → series → 文章` 分级，同样自动生成本篇目录。
 - `order` 控制笔记在同一系列中的顺序；在线编辑器里分别显示为一级、二级和三级索引字段。
 
+笔记支持 KaTeX 公式。行内公式使用 `$E = mc^2$`，块级公式使用：
+
+```md
+$$
+\operatorname{Attention}(Q,K,V)
+= \operatorname{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
+```
+
+完整写法可以参考 `src/content/notes/markdown-capabilities-demo.md`。
+
 图片、PDF 和其他附件放入 `public/uploads/`，在 Markdown 中使用：
 
 ```md

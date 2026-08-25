@@ -214,6 +214,7 @@ img { max-width: 100%; height: auto; }
 .prose code { padding: .16em .38em; border-radius: 4px; background: #edf2ef; color: #385849; font: .86em var(--mono); }
 .prose pre { overflow: auto; padding: 19px 21px; border: 1px solid #dce5e0; border-radius: 9px; background: #f5f7f6 !important; }
 .prose pre code { padding: 0; background: none; color: inherit; }
+.prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: .65em 0; }
 .prose table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; margin: 1.7em 0; font-size: .9rem; }
 .prose th, .prose td { padding: 9px 12px; border: 1px solid var(--line); text-align: left; white-space: nowrap; }
 .prose th { background: var(--surface-soft); }

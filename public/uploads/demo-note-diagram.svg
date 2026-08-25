@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+  <title id="title">一篇笔记从 Markdown 到网页的流程</title>
+  <desc id="desc">Markdown 内容经过 Astro 构建，最终成为带目录、公式和图片的网页。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#f8fbf6"/>
+      <stop offset="1" stop-color="#e8f3ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="480" rx="36" fill="#fbfcfa"/>
+  <path d="M90 337C213 191 311 412 454 241S708 84 872 189" fill="none" stroke="#b9e4d2" stroke-width="20" stroke-linecap="round" opacity=".72"/>
+  <g font-family="Inter, 'Microsoft YaHei', sans-serif" text-anchor="middle">
+    <g transform="translate(85 120)">
+      <rect width="220" height="220" rx="28" fill="url(#paper)" stroke="#cbdcd4" stroke-width="2"/>
+      <path d="M54 67h112M54 102h82M54 137h112M54 172h65" stroke="#287a62" stroke-width="9" stroke-linecap="round" opacity=".72"/>
+      <text x="110" y="262" fill="#526159" font-size="25">Markdown</text>
+    </g>
+    <g transform="translate(370 120)">
+      <rect width="220" height="220" rx="110" fill="#fff2c9" stroke="#eadcae" stroke-width="2"/>
+      <text x="110" y="132" fill="#7c631c" font-size="72">✦</text>
+      <text x="110" y="262" fill="#526159" font-size="25">Astro 构建</text>
+    </g>
+    <g transform="translate(655 120)">
+      <rect width="220" height="220" rx="28" fill="#eef2ff" stroke="#cfd8f4" stroke-width="2"/>
+      <rect x="38" y="45" width="144" height="120" rx="12" fill="#fff" stroke="#9daddc" stroke-width="4"/>
+      <path d="M58 73h68M58 98h95M58 123h80" stroke="#4d72d9" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="151" cy="73" r="10" fill="#b9e4d2"/>
+      <text x="110" y="262" fill="#526159" font-size="25">笔记网页</text>
+    </g>
+  </g>
+</svg>

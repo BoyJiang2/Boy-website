@@ -51,7 +51,7 @@ content:
       - { name: series, label: 二级索引（课程、论文系列或主题）, type: string, default: "" }
       - { name: order, label: 三级索引中的排序, type: number, default: 99 }
       - { name: status, label: 阅读状态, type: string, default: "" }
-      - { name: tags, label: 标签, type: select, options: { multiple: true, values: [网络, TCP, 系统, LLM, 分布式训练, GPU, 操作系统, xv6, RISC-V, Transformer, Attention, NLP, IO-Aware, Scaling, Empirical Study, AI, 工具] } }
+      - { name: tags, label: 标签, type: select, options: { multiple: true, values: [网络, TCP, 系统, LLM, 分布式训练, GPU, 操作系统, xv6, RISC-V, Transformer, Attention, NLP, IO-Aware, Scaling, Empirical Study, AI, 工具, Markdown, 写作, Demo] } }
       - { name: draft, label: 草稿, type: boolean, default: false }
       - { name: body, label: 正文, type: rich-text, options: { format: markdown, media: uploads, rename: true, switcher: true } }
 
