@@ -2,7 +2,6 @@
 title: 从收藏夹到自己的知识花园
 summary: 为什么选择 Markdown、Astro 和一个自己完全拥有的内容仓库。
 published: 2026-08-21
-category: 建站
 tags: [Astro, Markdown, 工作流]
 draft: false
 ---

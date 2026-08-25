@@ -28,7 +28,7 @@ src/content/
 
 复制同目录中的 `.md` 文件，修改 frontmatter 和正文即可。
 
-- 博客按 `category → 文章` 组织。
+- 博客按发布日期排序。
 - 笔记按 `type → series → 文章` 组织，`order` 控制系列内顺序。
 - 正文中的 `## / ### / ####` 会自动生成文章目录。
 - 公式、代码、引用、表格和图片示例见 `src/content/notes/markdown-capabilities-demo.md`。

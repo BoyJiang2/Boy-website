@@ -13,9 +13,9 @@ const items = [
     href: `/blog/${entry.id}/`,
     kind: '博客',
     icon: '✦',
-    detail: entry.data.category,
+    detail: '',
     date: entry.data.updated ?? entry.data.published,
-    search: [entry.data.title, entry.data.summary, entry.data.category, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
+    search: [entry.data.title, entry.data.summary, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
   })),
   ...projects.map((entry) => ({
     title: entry.data.title,

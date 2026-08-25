@@ -54,7 +54,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     </div>
     <div class="entry-list">
       {blogs.slice(0, 3).map((entry) => (
-        <EntryRow href={`/blog/${entry.id}/`} eyebrow={entry.data.category} title={entry.data.title} summary={entry.data.summary} date={entry.data.published} tags={entry.data.tags} />
+        <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} date={entry.data.published} tags={entry.data.tags} />
       ))}
     </div>
   </section>

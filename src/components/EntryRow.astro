@@ -1,7 +1,7 @@
 ---
 interface Props {
   href: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   summary: string;
   date: Date;
@@ -16,7 +16,7 @@ const formatted = new Intl.DateTimeFormat('zh-CN', {
 
 <article class="entry-row">
   <div class="entry-meta">
-    <span>{eyebrow}</span>
+    {eyebrow && <span>{eyebrow}</span>}
     <time datetime={date.toISOString()}>{formatted}</time>
   </div>
   <div class="entry-body">

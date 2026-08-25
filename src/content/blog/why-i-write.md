@@ -3,7 +3,6 @@ title: 为什么我要把学习过程公开写下来
 summary: 笔记不是资料的搬运，而是一次对自己理解程度的诚实检查。
 published: 2026-08-23
 updated: 2026-08-23
-category: 随笔
 tags: [学习, 写作]
 draft: false
 ---

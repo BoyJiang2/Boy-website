@@ -9,23 +9,22 @@ const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(entry.data.published);
 const entries = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
-const categoryIcons = ['✦', '☁', '⌁', '✎'];
-const categories = [...new Set(entries.map((item) => item.data.category))];
-const tree = categories.map((category, index) => {
-  const children = entries.filter((item) => item.data.category === category).map((item) => ({
+const tree = [{
+  label: '全部文章',
+  icon: '✦',
+  children: entries.map((item) => ({
     label: item.data.title,
     href: `/blog/${item.id}/`,
     current: item.id === entry.id,
-  }));
-  return { label: category, icon: categoryIcons[index % categoryIcons.length], children, open: children.some((item) => item.current) };
-});
+  })),
+  open: true,
+}];
 ---
 
 <BaseLayout title={`${entry.data.title} — Boy Jiang`} description={entry.data.summary}>
   <article class="article-wrap">
     <a class="article-back" href="/blog/">← 返回博客</a>
     <header class="article-header">
-      <p class="page-kicker">{entry.data.category}</p>
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
       <div class="article-byline"><span>{date}</span><span>{entry.data.tags.join(' · ')}</span></div>

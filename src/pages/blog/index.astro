@@ -13,7 +13,7 @@ const entries = (await getCollection('blog', ({ data }) => !data.draft)).sort((a
   </header>
   <section class="content-shell shell">
     <div class="entry-list">
-      {entries.map((entry) => <EntryRow href={`/blog/${entry.id}/`} eyebrow={entry.data.category} title={entry.data.title} summary={entry.data.summary} date={entry.data.published} tags={entry.data.tags} />)}
+      {entries.map((entry) => <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} date={entry.data.published} tags={entry.data.tags} />)}
     </div>
   </section>
 </BaseLayout>
