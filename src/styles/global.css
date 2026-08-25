@@ -212,7 +212,7 @@ img { max-width: 100%; height: auto; }
 }
 .mantra-line { display: block; white-space: nowrap; }
 .mantra-line.accent { color: var(--accent); font-style: italic; }
-.hero-lead { max-width: 640px; margin: 32px 0; color: var(--muted); font-size: 1.08rem; }
+.hero-lead { margin: 32px 0; color: var(--muted); font-size: 1.08rem; white-space: nowrap; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
 .pill-link { display: inline-flex; align-items: center; gap: 16px; padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; font-weight: 650; transition: transform .2s, box-shadow .2s, border-color .2s; }
 .pill-link:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
@@ -356,6 +356,7 @@ img { max-width: 100%; height: auto; }
 }
 @media (max-width: 760px) {
   .shell, .article-wrap { width: min(100% - 30px, 1120px); }
+  .hero-lead { white-space: normal; }
   .site-header { height: auto; padding-block: 18px 14px; align-items: flex-start; gap: 18px; }
   .theme-panel { position: fixed; top: 72px; left: 15px; right: 15px; width: auto; }
   .site-header nav { gap: 15px; flex-wrap: nowrap; justify-content: flex-end; font-size: .82rem; }
