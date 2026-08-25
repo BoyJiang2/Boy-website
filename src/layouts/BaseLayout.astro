@@ -12,10 +12,10 @@ const {
 } = Astro.props;
 const pathname = Astro.url.pathname;
 const nav = [
-  { href: '/blog/', label: '博客' },
-  { href: '/projects/', label: '项目' },
-  { href: '/notes/', label: '笔记' },
-  { href: '/about/', label: '关于' },
+  { href: '/blog/', label: '博客', icon: '✦' },
+  { href: '/projects/', label: '项目', icon: '◇' },
+  { href: '/notes/', label: '笔记', icon: '☘' },
+  { href: '/about/', label: '关于', icon: '☻' },
 ];
 ---
 
@@ -32,13 +32,25 @@ const nav = [
   <body>
     <div class="flow-ribbon" aria-hidden="true"></div>
     <header class="site-header shell">
-      <a class="wordmark" href="/" aria-label="返回首页">
-        <span class="wordmark-dot"></span>
-        <span>Boy Jiang</span>
-      </a>
+      <div class="header-start">
+        <details class="quick-index">
+          <summary><span aria-hidden="true">⌘</span><span>索引</span></summary>
+          <div class="quick-index-panel">
+            <p>去哪里看看？</p>
+            <a href="/"><span>⌂</span><span><strong>首页</strong><small>从这里重新出发</small></span></a>
+            {nav.map((item) => (
+              <a href={item.href}><span>{item.icon}</span><span><strong>{item.label}</strong><small>{item.label === '博客' ? '所思所想' : item.label === '项目' ? '正在创造' : item.label === '笔记' ? '课程与论文' : '关于我'}</small></span></a>
+            ))}
+          </div>
+        </details>
+        <a class="wordmark" href="/" aria-label="返回首页">
+          <span class="wordmark-dot"></span>
+          <span>Boy Jiang</span>
+        </a>
+      </div>
       <nav aria-label="主导航">
         {nav.map((item) => (
-          <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}>{item.label}</a>
+          <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}><span aria-hidden="true">{item.icon}</span>{item.label}</a>
         ))}
       </nav>
     </header>
@@ -50,5 +62,14 @@ const nav = [
       <span>用 Markdown 写作 · 用 Astro 构建</span>
       <a href="https://github.com/BoyJiang2" rel="noreferrer">GitHub ↗</a>
     </footer>
+    <script is:inline>
+      const quickIndex = document.querySelector('.quick-index');
+      document.addEventListener('click', (event) => {
+        if (quickIndex?.open && !quickIndex.contains(event.target)) quickIndex.removeAttribute('open');
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') quickIndex?.removeAttribute('open');
+      });
+    </script>
   </body>
 </html>

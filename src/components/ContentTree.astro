@@ -1,0 +1,39 @@
+---
+export interface TreeNode {
+  label: string;
+  href?: string;
+  icon?: string;
+  current?: boolean;
+  open?: boolean;
+  children?: TreeNode[];
+}
+
+interface Props {
+  nodes: TreeNode[];
+  nested?: boolean;
+}
+
+const { nodes, nested = false } = Astro.props;
+---
+
+<ul class:list={['content-tree', nested && 'is-nested']}>
+  {nodes.map((node) => (
+    <li>
+      {node.children?.length ? (
+        <details open={node.open}>
+          <summary>
+            {node.icon && <span class="tree-icon" aria-hidden="true">{node.icon}</span>}
+            <span>{node.label}</span>
+            <small>{node.children.length}</small>
+          </summary>
+          <Astro.self nodes={node.children} nested />
+        </details>
+      ) : (
+        <a class:list={[node.current && 'current']} href={node.href}>
+          {node.icon && <span class="tree-icon" aria-hidden="true">{node.icon}</span>}
+          <span>{node.label}</span>
+        </a>
+      )}
+    </li>
+  ))}
+</ul>

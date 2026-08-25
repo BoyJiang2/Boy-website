@@ -15,7 +15,7 @@ content:
       - { name: summary, label: 摘要, type: text }
       - { name: published, label: 发布日期, type: date, options: { format: yyyy-MM-dd } }
       - { name: updated, label: 更新日期, type: date, default: "", options: { format: yyyy-MM-dd } }
-      - { name: category, label: 分类, type: select, options: { values: [随笔, 技术, 建站, 生活] } }
+      - { name: category, label: 左侧索引分组, type: select, options: { values: [随笔, 技术, 建站, 生活] } }
       - { name: tags, label: 标签, type: select, options: { multiple: true, values: [学习, 写作, Astro, Markdown, 工作流, AI, 系统, 工具] } }
       - { name: draft, label: 草稿, type: boolean, default: false }
       - name: body
@@ -47,9 +47,9 @@ content:
       - { name: summary, label: 摘要, type: text }
       - { name: published, label: 发布日期, type: date, options: { format: yyyy-MM-dd } }
       - { name: updated, label: 更新日期, type: date, default: "", options: { format: yyyy-MM-dd } }
-      - { name: type, label: 类型, type: select, options: { values: [课程, 论文, 技术, 工具] } }
-      - { name: series, label: 系列或课程, type: string, default: "" }
-      - { name: order, label: 系列内排序, type: number, default: 99 }
+      - { name: type, label: 一级索引（类型）, type: select, options: { values: [课程, 论文, 技术, 工具] } }
+      - { name: series, label: 二级索引（课程、论文系列或主题）, type: string, default: "" }
+      - { name: order, label: 三级索引中的排序, type: number, default: 99 }
       - { name: status, label: 阅读状态, type: string, default: "" }
       - { name: tags, label: 标签, type: select, options: { multiple: true, values: [网络, TCP, 系统, LLM, 分布式训练, GPU, 操作系统, xv6, RISC-V, Transformer, Attention, NLP, IO-Aware, Scaling, Empirical Study, AI, 工具] } }
       - { name: draft, label: 草稿, type: boolean, default: false }

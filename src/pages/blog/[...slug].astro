@@ -1,12 +1,24 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleIndex from '../../components/ArticleIndex.astro';
 export async function getStaticPaths() {
   return (await getCollection('blog', ({ data }) => !data.draft)).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(entry.data.published);
+const entries = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const categoryIcons = ['✦', '☁', '⌁', '✎'];
+const categories = [...new Set(entries.map((item) => item.data.category))];
+const tree = categories.map((category, index) => {
+  const children = entries.filter((item) => item.data.category === category).map((item) => ({
+    label: item.data.title,
+    href: `/blog/${item.id}/`,
+    current: item.id === entry.id,
+  }));
+  return { label: category, icon: categoryIcons[index % categoryIcons.length], children, open: children.some((item) => item.current) };
+});
 ---
 
 <BaseLayout title={`${entry.data.title} — Boy Jiang`} description={entry.data.summary}>
@@ -18,7 +30,8 @@ const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', 
       <p>{entry.data.summary}</p>
       <div class="article-byline"><span>{date}</span><span>{entry.data.tags.join(' · ')}</span></div>
     </header>
-    <div class="docs-layout" style="grid-template-columns: minmax(0, 710px); justify-content: center;">
+    <div class="reading-layout">
+      <ArticleIndex title="博客索引" icon="✦" tree={tree} headings={headings} />
       <div class="prose"><Content /></div>
     </div>
   </article>

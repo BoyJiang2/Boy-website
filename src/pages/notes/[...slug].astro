@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleIndex from '../../components/ArticleIndex.astro';
 export async function getStaticPaths() {
   const entries = await getCollection('notes', ({ data }) => !data.draft);
   return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry, entries } }));
@@ -9,6 +10,21 @@ const { entry, entries } = Astro.props;
 const { Content, headings } = await render(entry);
 const sorted = [...entries].sort((a, b) => a.data.type.localeCompare(b.data.type, 'zh-CN') || a.data.order - b.data.order);
 const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(entry.data.updated ?? entry.data.published);
+const typeIcons = { '课程': '▤', '论文': '◈', '技术': '⌘', '工具': '✺' };
+const types = [...new Set(sorted.map((item) => item.data.type))];
+const tree = types.map((type) => {
+  const typeEntries = sorted.filter((item) => item.data.type === type);
+  const seriesNames = [...new Set(typeEntries.map((item) => item.data.series || '独立笔记'))];
+  const children = seriesNames.map((series) => {
+    const items = typeEntries.filter((item) => (item.data.series || '独立笔记') === series).map((item) => ({
+      label: item.data.title,
+      href: `/notes/${item.id}/`,
+      current: item.id === entry.id,
+    }));
+    return { label: series, children: items, open: items.some((item) => item.current) };
+  });
+  return { label: type, icon: typeIcons[type], children, open: type === entry.data.type };
+});
 ---
 
 <BaseLayout title={`${entry.data.title} — 笔记`} description={entry.data.summary}>
@@ -21,18 +37,9 @@ const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', 
       <p>{entry.data.summary}</p>
       <div class="article-byline"><span>更新于 {date}</span>{entry.data.duration && <span>{entry.data.duration}</span>}<span>{entry.data.tags.join(' · ')}</span></div>
     </header>
-    <div class="docs-layout">
-      <aside class="docs-sidebar">
-        <strong>全部笔记</strong>
-        <nav>
-          {sorted.map((item) => <a class:list={[item.id === entry.id && 'current']} href={`/notes/${item.id}/`}><small>{item.data.type}</small><br />{item.data.title}</a>)}
-        </nav>
-      </aside>
+    <div class="reading-layout">
+      <ArticleIndex title="笔记索引" icon="☘" tree={tree} headings={headings} />
       <div class="prose"><Content /></div>
-      <aside class="article-toc">
-        <strong>本页目录</strong>
-        {headings.length > 0 ? <ol>{headings.filter((heading) => heading.depth <= 3).map((heading) => <li class={`depth-${heading.depth}`}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol> : <span>暂无小节</span>}
-      </aside>
     </div>
   </article>
 </BaseLayout>

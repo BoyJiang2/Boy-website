@@ -1,0 +1,24 @@
+---
+export interface OutlineNode {
+  depth: number;
+  slug: string;
+  text: string;
+  children: OutlineNode[];
+}
+
+interface Props {
+  nodes: OutlineNode[];
+  nested?: boolean;
+}
+
+const { nodes, nested = false } = Astro.props;
+---
+
+<ol class:list={['outline-tree', nested && 'is-nested']}>
+  {nodes.map((node) => (
+    <li>
+      <a href={`#${node.slug}`}>{node.text}</a>
+      {node.children.length > 0 && <Astro.self nodes={node.children} nested />}
+    </li>
+  ))}
+</ol>

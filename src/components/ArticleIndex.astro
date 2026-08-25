@@ -1,0 +1,38 @@
+---
+import ContentTree, { type TreeNode } from './ContentTree.astro';
+import OutlineTree, { type OutlineNode } from './OutlineTree.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  icon: string;
+  tree: TreeNode[];
+  headings: Heading[];
+}
+
+const { title, icon, tree, headings } = Astro.props;
+
+const outline: OutlineNode[] = [];
+const stack: OutlineNode[] = [];
+for (const heading of headings.filter((item) => item.depth >= 2 && item.depth <= 4)) {
+  const node: OutlineNode = { ...heading, children: [] };
+  while (stack.length && stack.at(-1)!.depth >= node.depth) stack.pop();
+  if (stack.length) stack.at(-1)!.children.push(node);
+  else outline.push(node);
+  stack.push(node);
+}
+---
+
+<aside class="article-index" aria-label={`${title}与本篇目录`}>
+  <div class="index-heading"><span aria-hidden="true">{icon}</span><strong>{title}</strong></div>
+  <nav aria-label={title}><ContentTree nodes={tree} /></nav>
+  <div class="page-outline">
+    <div class="index-heading small"><span aria-hidden="true">⌁</span><strong>本篇目录</strong></div>
+    {outline.length > 0 ? <OutlineTree nodes={outline} /> : <p>这一篇很短，慢慢读就好。</p>}
+  </div>
+</aside>
