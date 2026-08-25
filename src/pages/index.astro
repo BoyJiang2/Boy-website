@@ -14,7 +14,11 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
   <section class="home-hero shell">
     <div>
       <p class="kicker">Hello, I am Boy Jiang</p>
-      <h1>钝感力、屏蔽力、<br /><em>快速心流。</em></h1>
+      <h1 class="hero-mantra" aria-label="Stay unbothered. Block the noise. Find flow, fast.">
+        <span class="mantra-line" style="--characters: 16; --target: 7.8em; --delay: .1s;">Stay unbothered.</span>
+        <span class="mantra-line" style="--characters: 16; --target: 7.2em; --delay: 1.35s;">Block the noise.</span>
+        <span class="mantra-line accent" style="--characters: 16; --target: 6.6em; --delay: 2.6s;">Find flow, fast.</span>
+      </h1>
       <p class="hero-lead">这是我的个人网站。我在这里记录技术笔记、项目实践，以及那些尚未成为结论的思考。</p>
       <div class="hero-links">
         <a class="pill-link primary" href="/notes/">浏览笔记 <span>→</span></a>

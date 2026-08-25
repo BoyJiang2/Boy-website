@@ -19,10 +19,10 @@ const primaryNav = [
   { href: '/search/', label: '搜索', icon: '⌕' },
 ];
 const themes = [
-  { value: 'midnight-gold', label: 'Midnight Gold', note: '午夜金' },
-  { value: 'professional-dark', label: 'Professional Dark', note: '专业深色' },
-  { value: 'glassmorphism-light', label: 'Glassmorphism Light', note: '玻璃浅色' },
-  { value: 'dark-neon', label: 'Dark Neon', note: '暗色霓虹' },
+  { value: 'midnight-gold', label: 'Midnight Gold' },
+  { value: 'professional-dark', label: 'Professional Dark' },
+  { value: 'glassmorphism-light', label: 'Glassmorphism Light' },
+  { value: 'dark-neon', label: 'Dark Neon' },
 ];
 ---
 
@@ -58,7 +58,7 @@ const themes = [
             {themes.map((theme) => (
               <button type="button" data-theme-value={theme.value}>
                 <span class={`theme-swatch ${theme.value}`} aria-hidden="true"></span>
-                <span><strong>{theme.label}</strong><small>{theme.note}</small></span>
+                <strong>{theme.label}</strong>
                 <span class="theme-check" aria-hidden="true">✓</span>
               </button>
             ))}
