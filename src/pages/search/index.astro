@@ -15,7 +15,7 @@ const items = [
     icon: '✦',
     detail: entry.data.category,
     date: entry.data.updated ?? entry.data.published,
-    search: [entry.data.title, entry.data.summary, entry.data.category, ...entry.data.tags].join(' ').toLowerCase(),
+    search: [entry.data.title, entry.data.summary, entry.data.category, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
   })),
   ...projects.map((entry) => ({
     title: entry.data.title,
@@ -25,7 +25,7 @@ const items = [
     icon: '◇',
     detail: entry.data.status,
     date: entry.data.updated ?? entry.data.published,
-    search: [entry.data.title, entry.data.summary, entry.data.status, ...entry.data.tags].join(' ').toLowerCase(),
+    search: [entry.data.title, entry.data.summary, entry.data.status, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
   })),
   ...notes.map((entry) => ({
     title: entry.data.title,
@@ -35,28 +35,17 @@ const items = [
     icon: '☘',
     detail: [entry.data.type, entry.data.series].filter(Boolean).join(' · '),
     date: entry.data.updated ?? entry.data.published,
-    search: [entry.data.title, entry.data.summary, entry.data.type, entry.data.series ?? '', ...entry.data.tags].join(' ').toLowerCase(),
+    search: [entry.data.title, entry.data.summary, entry.data.type, entry.data.series ?? '', ...entry.data.tags, entry.body].join(' ').toLowerCase(),
   })),
 ].sort((a, b) => b.date.valueOf() - a.date.valueOf());
 ---
 
 <BaseLayout title="搜索 — Boy Jiang" description="搜索博客、项目和笔记。">
-  <header class="page-head shell search-head">
-    <p class="page-kicker">Search everything</p>
-    <h1><span class="page-title-icon" aria-hidden="true">⌕</span>搜索</h1>
-    <p class="section-description">博客、项目和笔记放在同一个入口里。输入标题、摘要、分类或标签即可寻找。</p>
-  </header>
-  <section class="content-shell shell">
-    <div class="global-search">
-      <label for="global-search-input">想找什么？</label>
-      <div class="global-search-control">
-        <span aria-hidden="true">⌕</span>
-        <input id="global-search-input" type="search" placeholder="例如：CS336、Transformer、写作…" autocomplete="off" autofocus />
-        <kbd>/</kbd>
-      </div>
-      <p id="search-count">共 {items.length} 条内容</p>
-    </div>
-    <div class="search-results" id="global-search-results">
+  <section class="content-shell shell search-page">
+    <form class="global-search" id="global-search-form" role="search">
+      <input id="global-search-input" type="search" aria-label="搜索全站内容" placeholder="搜索博客、项目和笔记…" autocomplete="off" autofocus />
+    </form>
+    <div class="search-results" id="global-search-results" hidden>
       {items.map((item) => (
         <article class="search-result" data-search={item.search}>
           <div class="search-result-icon" aria-hidden="true">{item.icon}</div>
@@ -69,30 +58,40 @@ const items = [
         </article>
       ))}
     </div>
-    <div class="empty-state" id="global-search-empty">没有找到匹配内容，换个词试试。</div>
+    <div class="empty-state" id="global-search-empty" hidden>没有找到匹配内容，换个词试试。</div>
   </section>
   <script is:inline>
+    const form = document.querySelector('#global-search-form');
     const input = document.querySelector('#global-search-input');
     const results = [...document.querySelectorAll('.search-result')];
-    const count = document.querySelector('#search-count');
+    const resultsContainer = document.querySelector('#global-search-results');
     const empty = document.querySelector('#global-search-empty');
-    const update = () => {
+
+    const clearResults = () => {
+      resultsContainer.hidden = true;
+      empty.hidden = true;
+      results.forEach((result) => { result.hidden = true; });
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
       const query = input.value.trim().toLowerCase();
+      if (!query) {
+        clearResults();
+        return;
+      }
+
       let visible = 0;
       results.forEach((result) => {
-        const matches = !query || result.dataset.search.includes(query);
+        const matches = result.dataset.search.includes(query);
         result.hidden = !matches;
         if (matches) visible += 1;
       });
-      count.textContent = query ? `找到 ${visible} 条内容` : `共 ${results.length} 条内容`;
-      empty.style.display = visible ? 'none' : 'block';
-    };
-    input.addEventListener('input', update);
-    document.addEventListener('keydown', (event) => {
-      if (event.key === '/' && document.activeElement !== input) {
-        event.preventDefault();
-        input.focus();
-      }
+
+      resultsContainer.hidden = visible === 0;
+      empty.hidden = visible > 0;
     });
+
+    input.addEventListener('input', clearResults);
   </script>
 </BaseLayout>

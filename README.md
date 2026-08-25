@@ -1,4 +1,4 @@
-# Boy's Notes Website
+# Boy's Website
 
 我的个人网站，用来放博客、项目和学习笔记。
 

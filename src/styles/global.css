@@ -207,7 +207,7 @@ img { max-width: 100%; height: auto; }
 .home-hero h1 {
   max-width: 760px;
   margin: 0;
-  font: 500 clamp(3rem, 5.4vw, 5rem)/1.02 var(--serif);
+  font: 500 clamp(2.8rem, 5vw, 4.6rem)/1.02 var(--serif);
   letter-spacing: -.05em;
 }
 .mantra-line { display: block; white-space: nowrap; }
@@ -256,13 +256,9 @@ img { max-width: 100%; height: auto; }
 .page-head-actions { margin-top: 24px; }
 .content-shell { padding-bottom: 100px; }
 .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 28px; }
-.search-box { flex: 1; min-width: 230px; position: relative; }
-.search-box input { width: 100%; padding: 12px 16px 12px 39px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: .88rem; outline: none; }
-.search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.search-box::before { content: '⌕'; position: absolute; left: 14px; top: 8px; color: var(--muted); font-size: 1.1rem; }
 .filter-button { padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; }
 .filter-button:hover, .filter-button.active { color: var(--on-strong); border-color: var(--accent); background: var(--accent); }
-.empty-state { display: none; padding: 34px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 12px; }
+.empty-state { padding: 34px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 12px; }
 
 .article-wrap { width: min(1180px, calc(100% - 48px)); margin-inline: auto; padding: 58px 0 100px; }
 .article-back { display: inline-block; margin-bottom: 40px; color: var(--muted); font-size: .82rem; }
@@ -327,16 +323,11 @@ img { max-width: 100%; height: auto; }
 .prose img { display: block; margin: 1.8em auto; border-radius: 8px; }
 .prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.5em 0; }
 
-.search-head { padding-bottom: 38px; }
-.global-search { max-width: 820px; margin-bottom: 38px; }
-.global-search > label { display: block; margin-bottom: 9px; color: var(--muted); font-size: .74rem; font-weight: 700; }
-.global-search-control { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); box-shadow: var(--shadow); }
-.global-search-control > span { color: var(--accent); font-size: 1.15rem; }
-.global-search-control input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font: 500 1rem var(--sans); }
-.global-search-control input::placeholder { color: var(--subtle); }
-.global-search-control:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.global-search-control kbd { padding: 2px 7px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface-soft); color: var(--muted); font: .68rem var(--mono); }
-.global-search > p { margin: 9px 3px 0; color: var(--subtle); font-size: .7rem; }
+.search-page { min-height: 65vh; padding-top: 96px; }
+.global-search { max-width: 720px; margin: 0 auto 48px; }
+.global-search input { width: 100%; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; outline: 0; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); font: 500 1rem var(--sans); }
+.global-search input::placeholder { color: var(--subtle); }
+.global-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 .search-results { border-top: 1px solid var(--line); }
 .search-result { display: grid; grid-template-columns: 42px minmax(0, 1fr) 24px; gap: 17px; align-items: start; padding: 25px 4px; border-bottom: 1px solid var(--line); }
 .search-result:hover { background: var(--panel-hover); }
@@ -372,7 +363,7 @@ img { max-width: 100%; height: auto; }
   .nav-label { display: none; }
   .theme-picker summary { padding-inline: 2px; }
   .home-hero { min-height: auto; grid-template-columns: 1fr; gap: 45px; padding-block: 72px; }
-  .home-hero h1 { font-size: clamp(2.1rem, 10vw, 3.1rem); }
+  .home-hero h1 { font-size: clamp(1.75rem, 8.2vw, 2.8rem); }
   .entry-row { grid-template-columns: 1fr 22px; gap: 14px; }
   .entry-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
   .project-grid { grid-template-columns: 1fr; }
