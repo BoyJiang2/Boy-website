@@ -13,10 +13,9 @@ const {
 } = Astro.props;
 const pathname = Astro.url.pathname;
 const primaryNav = [
-  { href: '/blog/', label: '博客', icon: '✦' },
-  { href: '/projects/', label: '项目', icon: '◇' },
-  { href: '/notes/', label: '笔记', icon: '☘' },
-  { href: '/search/', label: '搜索', icon: '⌕' },
+  { href: '/blog/', label: '博客' },
+  { href: '/projects/', label: '项目' },
+  { href: '/notes/', label: '笔记' },
 ];
 const themes = [
   { value: 'midnight-gold', label: 'Midnight Gold' },
@@ -32,8 +31,9 @@ const themes = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#fbfcfa" />
-    <link rel="icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <link rel="icon" type="image/png" href="/brand/site-icon.png" />
+    <link rel="apple-touch-icon" href="/brand/site-icon.png" />
     <title>{title}</title>
     <script is:inline>
       try {
@@ -46,13 +46,32 @@ const themes = [
   <body>
     <div class="flow-ribbon" aria-hidden="true"></div>
     <header class="site-header shell">
-      <a class="wordmark" href="/" aria-label="返回首页">Boy Jiang</a>
-      <nav aria-label="主导航">
-        {primaryNav.map((item) => (
-          <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}><span aria-hidden="true">{item.icon}</span><span class="nav-label">{item.label}</span></a>
-        ))}
+      <a class="wordmark" href="/" aria-label="Boy Jiang 首页">
+        <span class="brand-mark" aria-hidden="true">
+          <img class="brand-logo brand-logo-light" src="/brand/logo-navy-gold.png" alt="" width="1920" height="1920" />
+          <img class="brand-logo brand-logo-dark" src="/brand/logo-ivory-gold.png" alt="" width="1920" height="1920" />
+        </span>
+        <span class="wordmark-text">Boy Jiang</span>
+      </a>
+      <nav class="header-nav" aria-label="主导航">
+        <span class="primary-nav-links">
+          {primaryNav.map((item) => (
+            <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}>{item.label}</a>
+          ))}
+        </span>
+        <span class="header-divider" aria-hidden="true"></span>
+        <a class:list={['search-link', pathname.startsWith('/search/') && 'active']} href="/search/" aria-label="搜索">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </a>
         <details class="theme-picker">
-          <summary><span aria-hidden="true">◐</span><span class="nav-label">主题</span></summary>
+          <summary aria-label="选择主题" title="选择主题">
+            <span class="theme-toggle-track" aria-hidden="true">
+              <svg class="theme-moon" viewBox="0 0 24 24"><path d="M18.5 15.4A7.4 7.4 0 0 1 8.6 5.5 7.8 7.8 0 1 0 18.5 15.4Z"></path></svg>
+              <span class="theme-toggle-knob">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.3"></circle><path d="M12 2.2v2.2M12 19.6v2.2M2.2 12h2.2M19.6 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M18.9 5.1l-1.6 1.6M6.7 17.3l-1.6 1.6"></path></svg>
+              </span>
+            </span>
+          </summary>
           <div class="theme-panel">
             <p>选择阅读氛围</p>
             {themes.map((theme) => (
@@ -64,7 +83,7 @@ const themes = [
             ))}
           </div>
         </details>
-        <a class:list={[pathname.startsWith('/about/') && 'active']} href="/about/"><span aria-hidden="true">☻</span><span class="nav-label">关于</span></a>
+        <a class:list={['about-link', pathname.startsWith('/about/') && 'active']} href="/about/">关于</a>
       </nav>
     </header>
     <main>
@@ -77,8 +96,16 @@ const themes = [
     <script is:inline>
       const themePicker = document.querySelector('.theme-picker');
       const themeButtons = [...document.querySelectorAll('[data-theme-value]')];
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      const themeColors = {
+        'midnight-gold': '#f4f1ea',
+        'professional-dark': '#18191c',
+        'glassmorphism-light': '#eaf1f8',
+        'dark-neon': '#07090d',
+      };
       const setTheme = (theme) => {
         document.documentElement.dataset.theme = theme;
+        themeColor?.setAttribute('content', themeColors[theme] || themeColors['midnight-gold']);
         themeButtons.forEach((button) => button.classList.toggle('selected', button.dataset.themeValue === theme));
         try { localStorage.setItem('boy-jiang-theme', theme); } catch {}
       };
