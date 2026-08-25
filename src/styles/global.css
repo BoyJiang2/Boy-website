@@ -212,10 +212,10 @@ img { max-width: 100%; height: auto; }
   letter-spacing: -.065em;
 }
 .hero-mantra { min-height: 2.94em; }
-.mantra-line { display: block; width: 0; max-width: 100%; overflow: hidden; border-right: 2px solid transparent; white-space: nowrap; animation: type-mantra 1.05s steps(var(--characters), end) var(--delay) forwards, blink-mantra .55s step-end var(--delay) 2; }
+.mantra-line { display: block; width: max-content; white-space: nowrap; }
+.mantra-character { opacity: 0; animation: reveal-mantra-character 1ms linear var(--character-delay) forwards; }
 .mantra-line.accent { color: var(--accent); font-style: italic; }
-@keyframes type-mantra { from { width: 0; } to { width: var(--target); } }
-@keyframes blink-mantra { 0%, 100% { border-color: transparent; } 50% { border-color: currentColor; } }
+@keyframes reveal-mantra-character { to { opacity: 1; } }
 .hero-lead { max-width: 640px; margin: 32px 0; color: var(--muted); font-size: 1.08rem; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
 .pill-link { display: inline-flex; align-items: center; gap: 16px; padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; font-weight: 650; transition: transform .2s, box-shadow .2s, border-color .2s; }
@@ -381,7 +381,7 @@ img { max-width: 100%; height: auto; }
   .nav-label { display: none; }
   .theme-picker summary { padding-inline: 2px; }
   .home-hero { min-height: auto; grid-template-columns: 1fr; gap: 45px; padding-block: 72px; }
-  .home-hero h1 { font-size: clamp(2.35rem, 11.5vw, 3.4rem); }
+  .home-hero h1 { font-size: clamp(2.2rem, 10.8vw, 3.4rem); }
   .profile-note { max-width: 340px; }
   .entry-row { grid-template-columns: 1fr 22px; gap: 14px; }
   .entry-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
@@ -394,4 +394,5 @@ img { max-width: 100%; height: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  .mantra-character { opacity: 1; animation: none !important; }
 }
