@@ -1,16 +1,7 @@
 ---
 title: Scaling Laws for Neural Language Models
-published: 2026-08-20
-type: 论文
-series: Scaling Laws
-draft: false
-authors: Jared Kaplan et al.
-venue: arXiv
-year: 2020
 summary: 用经验幂律描述模型、数据与计算量如何共同影响语言模型损失。
 tags: [Scaling, LLM, Empirical Study]
-status: 待读
-order: 3
 ---
 
 ## 阅读前的问题

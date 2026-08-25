@@ -1,13 +1,7 @@
 ---
 title: Markdown 能力演示：公式、代码与图文混排
 summary: 一篇用于检查公式、代码块、引用、表格、图片和链接是否正常渲染的示例笔记。
-published: 2026-08-25
-updated: 2026-08-25
-type: 技术
-series: Markdown 写作手册
-draft: false
 tags: [Markdown, 写作, Demo]
-order: 1
 ---
 
 这是一篇可以放心修改、复制和删除的演示笔记。它把常用的写作元素放在同一页，方便检查网站的 Markdown 渲染能力。
@@ -38,14 +32,11 @@ $$
 ```ts
 type Note = {
   title: string;
+  summary: string;
   tags: string[];
-  draft: boolean;
 };
 
-const publish = (note: Note) => {
-  if (note.draft) return '继续打磨';
-  return `发布：${note.title}`;
-};
+const describe = (note: Note) => `${note.title} · ${note.tags.join(' / ')}`;
 ```
 
 行内代码也可以正常使用，例如 `npm run build` 或 `src/content/notes/`。

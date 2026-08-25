@@ -1,10 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getNoteLocation } from '../../utils/notes';
 
-const blogs = await getCollection('blog', ({ data }) => !data.draft);
-const projects = await getCollection('projects', ({ data }) => !data.draft);
-const notes = await getCollection('notes', ({ data }) => !data.draft);
+const blogs = await getCollection('blog');
+const projects = await getCollection('projects');
+const notes = await getCollection('notes');
 
 const items = [
   ...blogs.map((entry) => ({
@@ -14,7 +15,6 @@ const items = [
     kind: '博客',
     icon: '✦',
     detail: '',
-    date: entry.data.updated ?? entry.data.published,
     search: [entry.data.title, entry.data.summary, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
   })),
   ...projects.map((entry) => ({
@@ -23,21 +23,19 @@ const items = [
     href: `/projects/${entry.id}/`,
     kind: '项目',
     icon: '◇',
-    detail: entry.data.status,
-    date: entry.data.updated ?? entry.data.published,
-    search: [entry.data.title, entry.data.summary, entry.data.status, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
+    detail: '',
+    search: [entry.data.title, entry.data.summary, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
   })),
   ...notes.map((entry) => ({
     title: entry.data.title,
     summary: entry.data.summary,
-    href: `/notes/${entry.id}/`,
+    href: `/notes/${getNoteLocation(entry).slug}/`,
     kind: '笔记',
     icon: '☘',
-    detail: [entry.data.type, entry.data.series].filter(Boolean).join(' · '),
-    date: entry.data.updated ?? entry.data.published,
-    search: [entry.data.title, entry.data.summary, entry.data.type, entry.data.series ?? '', ...entry.data.tags, entry.body].join(' ').toLowerCase(),
+    detail: [getNoteLocation(entry).category, getNoteLocation(entry).series].join(' · '),
+    search: [entry.data.title, entry.data.summary, getNoteLocation(entry).category, getNoteLocation(entry).series, ...entry.data.tags, entry.body].join(' ').toLowerCase(),
   })),
-].sort((a, b) => b.date.valueOf() - a.date.valueOf());
+].sort((a, b) => a.kind.localeCompare(b.kind, 'zh-CN') || a.title.localeCompare(b.title, 'zh-CN'));
 ---
 
 <BaseLayout title="搜索 — Boy Jiang" description="搜索博客、项目和笔记。">

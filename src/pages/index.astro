@@ -3,11 +3,12 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EntryRow from '../components/EntryRow.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { getNoteLocation } from '../utils/notes';
 
-const byDate = <T extends { data: { published: Date } }>(a: T, b: T) => b.data.published.valueOf() - a.data.published.valueOf();
-const blogs = (await getCollection('blog', ({ data }) => !data.draft)).sort(byDate);
-const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(byDate);
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const byTitle = <T extends { data: { title: string } }>(a: T, b: T) => a.data.title.localeCompare(b.data.title, 'zh-CN');
+const blogs = (await getCollection('blog')).sort(byTitle);
+const notes = (await getCollection('notes')).sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
+const projects = (await getCollection('projects')).sort(byTitle);
 ---
 
 <BaseLayout>
@@ -29,13 +30,14 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 
   <section class="home-section shell">
     <div class="section-head">
-      <div><p class="section-kicker">Latest notes</p><h2>最近更新的笔记</h2></div>
+      <div><p class="section-kicker">Notes</p><h2>笔记选读</h2></div>
       <a href="/notes/">查看全部 →</a>
     </div>
     <div class="entry-list">
-      {notes.slice(0, 4).map((entry) => (
-        <EntryRow href={`/notes/${entry.id}/`} eyebrow={entry.data.type} title={entry.data.title} summary={entry.data.summary} date={entry.data.updated ?? entry.data.published} tags={entry.data.tags} />
-      ))}
+      {notes.slice(0, 4).map((entry) => {
+        const location = getNoteLocation(entry);
+        return <EntryRow href={`/notes/${location.slug}/`} eyebrow={`${location.category} · ${location.series}`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />;
+      })}
     </div>
   </section>
 
@@ -54,7 +56,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
     </div>
     <div class="entry-list">
       {blogs.slice(0, 3).map((entry) => (
-        <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} date={entry.data.published} tags={entry.data.tags} />
+        <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />
       ))}
     </div>
   </section>

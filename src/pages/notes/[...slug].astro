@@ -2,28 +2,29 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleIndex from '../../components/ArticleIndex.astro';
+import { getNoteLocation } from '../../utils/notes';
 export async function getStaticPaths() {
-  const entries = await getCollection('notes', ({ data }) => !data.draft);
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry, entries } }));
+  const entries = await getCollection('notes');
+  return entries.map((entry) => ({ params: { slug: entry.id.split('/').at(-1) }, props: { entry, entries } }));
 }
 const { entry, entries } = Astro.props;
 const { Content, headings } = await render(entry);
-const sorted = [...entries].sort((a, b) => a.data.type.localeCompare(b.data.type, 'zh-CN') || a.data.order - b.data.order);
-const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(entry.data.updated ?? entry.data.published);
-const typeIcons = { '课程': '▤', '论文': '◈', '技术': '⌘', '工具': '✺' };
-const types = [...new Set(sorted.map((item) => item.data.type))];
-const tree = types.map((type) => {
-  const typeEntries = sorted.filter((item) => item.data.type === type);
-  const seriesNames = [...new Set(typeEntries.map((item) => item.data.series || '独立笔记'))];
+const sorted = [...entries].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
+const categoryIcons: Record<string, string> = { '课程': '▤', '论文': '◈', '技术': '⌘', '工具': '✺' };
+const currentLocation = getNoteLocation(entry);
+const categories = [...new Set(sorted.map((item) => getNoteLocation(item).category))];
+const tree = categories.map((category) => {
+  const categoryEntries = sorted.filter((item) => getNoteLocation(item).category === category);
+  const seriesNames = [...new Set(categoryEntries.map((item) => getNoteLocation(item).series))];
   const children = seriesNames.map((series) => {
-    const items = typeEntries.filter((item) => (item.data.series || '独立笔记') === series).map((item) => ({
+    const items = categoryEntries.filter((item) => getNoteLocation(item).series === series).map((item) => ({
       label: item.data.title,
-      href: `/notes/${item.id}/`,
+      href: `/notes/${getNoteLocation(item).slug}/`,
       current: item.id === entry.id,
     }));
     return { label: series, children: items, open: items.some((item) => item.current) };
   });
-  return { label: type, icon: typeIcons[type], children, open: type === entry.data.type };
+  return { label: category, icon: categoryIcons[category] ?? '•', children, open: category === currentLocation.category };
 });
 ---
 
@@ -31,11 +32,10 @@ const tree = types.map((type) => {
   <article class="article-wrap">
     <a class="article-back" href="/notes/">← 返回笔记</a>
     <header class="article-header">
-      <p class="page-kicker">{entry.data.type}{entry.data.series ? ` · ${entry.data.series}` : ''}</p>
+      <p class="page-kicker">{currentLocation.category} · {currentLocation.series}</p>
       <h1>{entry.data.title}</h1>
-      {entry.data.authors && <p>{entry.data.authors}</p>}
       <p>{entry.data.summary}</p>
-      <div class="article-byline"><span>更新于 {date}</span>{entry.data.duration && <span>{entry.data.duration}</span>}<span>{entry.data.tags.join(' · ')}</span></div>
+      <div class="article-byline"><span>{entry.data.tags.join(' · ')}</span></div>
     </header>
     <div class="reading-layout">
       <ArticleIndex title="笔记索引" icon="☘" tree={tree} headings={headings} />

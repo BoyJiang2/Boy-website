@@ -1,15 +1,7 @@
 ---
 title: 用 xv6 理解操作系统
 summary: 在小型真实内核里追踪进程、虚拟内存与文件系统如何协作。
-published: 2026-08-14
-type: 课程
-series: MIT 6.S081
-draft: false
-course: MIT 6.S081
-period: Fall 2024
-duration: 11 个 Lab
 tags: [操作系统, xv6, RISC-V]
-order: 3
 ---
 
 ## 为什么是 xv6

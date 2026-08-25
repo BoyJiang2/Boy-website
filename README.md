@@ -23,15 +23,32 @@ npm run build
 src/content/
 ├─ blog/       # 博客
 ├─ projects/   # 项目
-└─ notes/      # 课程、论文和技术笔记
+└─ notes/
+   ├─ 课程/课程名称/
+   ├─ 论文/论文系列/
+   └─ 技术/主题名称/
 ```
 
-复制同目录中的 `.md` 文件，修改 frontmatter 和正文即可。
+笔记的分类和系列由文件夹决定，例如：
 
-- 博客按发布日期排序。
-- 笔记按 `type → series → 文章` 组织，`order` 控制系列内顺序。
+```text
+src/content/notes/论文/Transformer 经典论文/attention-is-all-you-need.md
+```
+
+每篇 Markdown 顶部只需要三个字段：
+
+```yaml
+---
+title: Attention Is All You Need
+summary: 用自注意力替代循环与卷积。
+tags: [Transformer, Attention]
+---
+```
+
+- 文件放进内容目录后会直接公开。
+- 列表和索引按文件夹路径与标题自动排序。
 - 正文中的 `## / ### / ####` 会自动生成文章目录。
-- 公式、代码、引用、表格和图片示例见 `src/content/notes/markdown-capabilities-demo.md`。
+- 公式、代码、引用、表格和图片示例见 `src/content/notes/技术/Markdown 写作手册/markdown-capabilities-demo.md`。
 
 图片和附件放在 `public/uploads/`：
 

@@ -4,21 +4,22 @@ interface Props {
   eyebrow?: string;
   title: string;
   summary: string;
-  date: Date;
+  date?: Date;
   tags?: string[];
 }
 
 const { href, eyebrow, title, summary, date, tags = [] } = Astro.props;
-const formatted = new Intl.DateTimeFormat('zh-CN', {
+const formatted = date && new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric', month: 'short', day: 'numeric',
 }).format(date);
+const hasMeta = Boolean(eyebrow || date);
 ---
 
-<article class="entry-row">
-  <div class="entry-meta">
+<article class:list={['entry-row', !hasMeta && 'compact']}>
+  {hasMeta && <div class="entry-meta">
     {eyebrow && <span>{eyebrow}</span>}
-    <time datetime={date.toISOString()}>{formatted}</time>
-  </div>
+    {date && <time datetime={date.toISOString()}>{formatted}</time>}
+  </div>}
   <div class="entry-body">
     <h3><a href={href}>{title}</a></h3>
     <p>{summary}</p>

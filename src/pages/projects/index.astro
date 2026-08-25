@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-const entries = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const entries = (await getCollection('projects')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'zh-CN'));
 ---
 
 <BaseLayout title="项目 — Boy Jiang" description="个人项目与实践记录。">

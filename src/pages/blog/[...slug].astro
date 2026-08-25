@@ -3,12 +3,11 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleIndex from '../../components/ArticleIndex.astro';
 export async function getStaticPaths() {
-  return (await getCollection('blog', ({ data }) => !data.draft)).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  return (await getCollection('blog')).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
-const date = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(entry.data.published);
-const entries = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const entries = (await getCollection('blog')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'zh-CN'));
 const tree = [{
   label: '全部文章',
   icon: '✦',
@@ -27,7 +26,7 @@ const tree = [{
     <header class="article-header">
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
-      <div class="article-byline"><span>{date}</span><span>{entry.data.tags.join(' · ')}</span></div>
+      <div class="article-byline"><span>{entry.data.tags.join(' · ')}</span></div>
     </header>
     <div class="reading-layout">
       <ArticleIndex title="博客索引" icon="✦" tree={tree} headings={headings} />

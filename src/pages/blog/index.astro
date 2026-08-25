@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EntryRow from '../../components/EntryRow.astro';
-const entries = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+const entries = (await getCollection('blog')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'zh-CN'));
 ---
 
 <BaseLayout title="博客 — Boy Jiang" description="关于学习、技术与生活的个人思考。">
@@ -13,7 +13,7 @@ const entries = (await getCollection('blog', ({ data }) => !data.draft)).sort((a
   </header>
   <section class="content-shell shell">
     <div class="entry-list">
-      {entries.map((entry) => <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} date={entry.data.published} tags={entry.data.tags} />)}
+      {entries.map((entry) => <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />)}
     </div>
   </section>
 </BaseLayout>

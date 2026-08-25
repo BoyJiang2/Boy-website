@@ -1,16 +1,7 @@
 ---
 title: 大模型训练的系统视角
 summary: 从算力估算、并行策略到通信开销，建立训练系统的直觉。
-published: 2026-08-12
-updated: 2026-08-22
-type: 课程
-series: Stanford CS336
-draft: false
-course: Stanford CS336
-period: Spring 2025
-duration: 12 讲
 tags: [LLM, 分布式训练, GPU]
-order: 2
 ---
 
 ## 第一性问题

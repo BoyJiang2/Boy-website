@@ -1,17 +1,7 @@
 ---
 title: Attention Is All You Need
-published: 2026-08-16
-updated: 2026-08-20
-type: 论文
-series: Transformer 经典论文
-draft: false
-authors: Ashish Vaswani et al.
-venue: NeurIPS
-year: 2017
 summary: 用自注意力替代循环与卷积，让序列模型获得并行训练能力与更短的信息路径。
 tags: [Transformer, Attention, NLP]
-status: 读完
-order: 1
 ---
 
 ## 它改变了什么
