@@ -187,8 +187,7 @@ img { max-width: 100%; height: auto; }
 .home-hero {
   min-height: 560px;
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(260px, .7fr);
-  gap: 72px;
+  grid-template-columns: 1fr;
   align-items: center;
   padding-block: 96px 84px;
   position: relative;
@@ -218,11 +217,6 @@ img { max-width: 100%; height: auto; }
 .pill-link { display: inline-flex; align-items: center; gap: 16px; padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; font-weight: 650; transition: transform .2s, box-shadow .2s, border-color .2s; }
 .pill-link:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
 .pill-link.primary { background: var(--ink); border-color: var(--ink); color: var(--on-strong); }
-.profile-note { align-self: end; padding: 23px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface-glass); box-shadow: var(--shadow); backdrop-filter: blur(14px); transform: rotate(1.2deg); transition: transform .3s ease; }
-.profile-note:hover { transform: rotate(0) translateY(-3px); }
-.profile-badge { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; color: var(--on-strong); background: linear-gradient(145deg, var(--accent), var(--blue)); font: 600 1.15rem var(--serif); }
-.profile-note strong { display: block; margin-top: 18px; }
-.profile-note p { margin: 5px 0 0; color: var(--muted); font-size: .87rem; }
 
 .home-section { padding-block: 86px; border-top: 1px solid var(--line); }
 .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
@@ -379,7 +373,6 @@ img { max-width: 100%; height: auto; }
   .theme-picker summary { padding-inline: 2px; }
   .home-hero { min-height: auto; grid-template-columns: 1fr; gap: 45px; padding-block: 72px; }
   .home-hero h1 { font-size: clamp(2.1rem, 10vw, 3.1rem); }
-  .profile-note { max-width: 340px; }
   .entry-row { grid-template-columns: 1fr 22px; gap: 14px; }
   .entry-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
   .project-grid { grid-template-columns: 1fr; }
