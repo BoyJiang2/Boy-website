@@ -8,37 +8,16 @@ const byDate = <T extends { data: { published: Date } }>(a: T, b: T) => b.data.p
 const blogs = (await getCollection('blog', ({ data }) => !data.draft)).sort(byDate);
 const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort(byDate);
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
-
-const mantraSource = [
-  { text: 'Stay unbothered.', accent: false },
-  { text: 'Block the noise.', accent: false },
-  { text: 'Find flow, fast.', accent: true },
-];
-
-let mantraDelay = 100;
-const mantraLines = mantraSource.map((line) => {
-  const characters = Array.from(line.text).map((character) => {
-    const delay = mantraDelay;
-    mantraDelay += 65;
-    return { character, delay };
-  });
-  mantraDelay += 220;
-  return { ...line, characters };
-});
 ---
 
 <BaseLayout>
   <section class="home-hero shell">
     <div>
       <p class="kicker">Hello, I am Boy Jiang</p>
-      <h1 class="hero-mantra" aria-label="Stay unbothered. Block the noise. Find flow, fast.">
-        {mantraLines.map((line) => (
-          <span class:list={['mantra-line', line.accent && 'accent']} aria-hidden="true">
-            {line.characters.map(({ character, delay }) => (
-              <span class="mantra-character" style={`--character-delay: ${delay}ms;`}>{character === ' ' ? '\u00a0' : character}</span>
-            ))}
-          </span>
-        ))}
+      <h1 class="hero-mantra">
+        <span class="mantra-line">Stay unbothered.</span>
+        <span class="mantra-line">Block the noise.</span>
+        <span class="mantra-line accent">Find flow, fast.</span>
       </h1>
       <p class="hero-lead">这是我的个人网站。我在这里记录技术笔记、项目实践，以及那些尚未成为结论的思考。</p>
       <div class="hero-links">
