@@ -45,7 +45,7 @@ src/content/
 仓库中的 `.pages.yml` 已配置 [Pages CMS](https://app.pagescms.org/)：
 
 1. 使用 GitHub 登录 Pages CMS。
-2. 授权 `BoyJiang2/Boy-s-notes-website`。
+2. 授权 `BoyJiang2/Boy-website`。
 3. 选择 `main` 分支。
 4. 新建或修改博客、项目和笔记。
 
