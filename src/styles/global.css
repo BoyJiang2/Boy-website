@@ -285,6 +285,7 @@ img { max-width: 100%; height: auto; }
 .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 28px; }
 .filter-button { padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; }
 .filter-button:hover, .filter-button.active { color: var(--on-strong); border-color: var(--accent); background: var(--accent); }
+.note-filter-item[hidden] { display: none; }
 .empty-state { padding: 34px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 12px; }
 
 .article-wrap { width: min(1180px, calc(100% - 48px)); margin-inline: auto; padding: 58px 0 100px; }
