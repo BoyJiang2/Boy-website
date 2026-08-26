@@ -15,10 +15,10 @@ const projects = (await getCollection('projects')).sort(byTitle);
   <section class="home-hero shell">
     <div>
       <p class="kicker">Hello, I am Boy Jiang</p>
-      <h1 class="hero-mantra">
-        <span class="mantra-line">Emotional Resilience</span>
-        <span class="mantra-line">Distraction Resistance</span>
-        <span class="mantra-line accent">Rapid Flow-State Entry</span>
+      <h1 class="hero-mantra" aria-label="Emotional Resilience. Distraction Resistance. Rapid Flow-State Entry.">
+        <span class="mantra-line" data-mantra-line aria-hidden="true">Emotional Resilience</span>
+        <span class="mantra-line" data-mantra-line aria-hidden="true">Distraction Resistance</span>
+        <span class="mantra-line" data-mantra-line aria-hidden="true">Rapid Flow-State Entry</span>
       </h1>
       <p class="hero-lead">这是我的个人网站。我在这里记录技术笔记、项目实践，以及那些尚未成为结论的思考。</p>
       <div class="hero-links">
@@ -27,6 +27,32 @@ const projects = (await getCollection('projects')).sort(byTitle);
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    const mantraLines = [...document.querySelectorAll('[data-mantra-line]')];
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const texts = mantraLines.map((line) => line.textContent ?? '');
+      mantraLines.forEach((line) => { line.textContent = ''; });
+      const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+
+      (async () => {
+        for (let index = 0; index < mantraLines.length; index += 1) {
+          const line = mantraLines[index];
+          line.classList.add('typing');
+          for (const character of texts[index]) {
+            line.textContent += character;
+            await wait(45);
+          }
+          if (index < mantraLines.length - 1) {
+            await wait(120);
+            line.classList.remove('typing');
+          }
+        }
+        await wait(1200);
+        mantraLines.at(-1)?.classList.remove('typing');
+      })();
+    }
+  </script>
 
   <section class="home-section shell">
     <div class="section-head">

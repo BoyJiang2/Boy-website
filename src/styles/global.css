@@ -236,8 +236,9 @@ img { max-width: 100%; height: auto; }
   font: 500 clamp(2.8rem, 5vw, 4.6rem)/1.02 var(--serif);
   letter-spacing: -.05em;
 }
-.mantra-line { display: block; white-space: nowrap; }
-.mantra-line.accent { color: var(--accent); font-style: italic; }
+.mantra-line { display: block; min-height: 1.02em; width: fit-content; color: inherit; white-space: nowrap; }
+.mantra-line.typing::after { content: ''; display: inline-block; width: 1px; height: .82em; margin-left: .08em; background: currentColor; animation: mantra-caret .75s step-end infinite; }
+@keyframes mantra-caret { 50% { opacity: 0; } }
 .hero-lead { margin: 32px 0; color: var(--muted); font-size: 1.08rem; white-space: nowrap; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
 .pill-link { display: inline-flex; align-items: center; gap: 16px; padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; font-weight: 650; transition: transform .2s, box-shadow .2s, border-color .2s; }
