@@ -8,7 +8,7 @@ const shared = {
 };
 
 const blog = defineCollection({
-  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: './src/content/blogs', pattern: '**/*.{md,mdx}' }),
   schema: z.object({ ...shared }),
 });
 

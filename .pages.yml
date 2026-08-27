@@ -9,7 +9,7 @@ content:
   - name: blog
     label: 博客
     type: collection
-    path: src/content/blog
+    path: src/content/blogs
     fields:
       - { name: title, label: 标题, type: string }
       - { name: summary, label: 摘要, type: text }
