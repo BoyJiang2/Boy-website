@@ -56,7 +56,19 @@ const projects = (await getCollection('projects')).sort(byTitle);
 
   <section class="home-section shell">
     <div class="section-head">
-      <div><p class="section-kicker">Notes</p><h2>笔记选读</h2></div>
+      <div><p class="section-kicker">Blogs</p><h2>博客</h2></div>
+      <a href="/blog/">查看全部 →</a>
+    </div>
+    <div class="entry-list">
+      {blogs.slice(0, 3).map((entry) => (
+        <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />
+      ))}
+    </div>
+  </section>
+
+  <section class="home-section shell">
+    <div class="section-head">
+      <div><p class="section-kicker">Notes</p><h2>笔记</h2></div>
       <a href="/notes/">查看全部 →</a>
     </div>
     <div class="entry-list">
@@ -69,21 +81,9 @@ const projects = (await getCollection('projects')).sort(byTitle);
 
   <section class="home-section shell">
     <div class="section-head">
-      <div><p class="section-kicker">Projects</p><h2>正在做的项目</h2></div>
-      <a href="/projects/">所有项目 →</a>
+      <div><p class="section-kicker">Projects</p><h2>项目</h2></div>
+      <a href="/projects/">查看全部 →</a>
     </div>
     <div class="project-grid">{projects.slice(0, 2).map((entry) => <ProjectCard entry={entry} />)}</div>
-  </section>
-
-  <section class="home-section shell">
-    <div class="section-head">
-      <div><p class="section-kicker">Writing</p><h2>博客与所思所想</h2></div>
-      <a href="/blog/">进入博客 →</a>
-    </div>
-    <div class="entry-list">
-      {blogs.slice(0, 3).map((entry) => (
-        <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />
-      ))}
-    </div>
   </section>
 </BaseLayout>
