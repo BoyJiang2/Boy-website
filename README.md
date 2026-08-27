@@ -21,7 +21,7 @@ npm run build
 
 ```text
 src/content/
-├─ blog/       # 博客
+├─ blogs/      # 博客
 ├─ projects/   # 项目
 └─ notes/
    ├─ 课程/课程名称/
