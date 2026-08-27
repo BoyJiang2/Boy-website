@@ -14,7 +14,11 @@ const blog = defineCollection({
 
 const projects = defineCollection({
   loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
-  schema: z.object({ ...shared }),
+  schema: z.object({
+    ...shared,
+    github: z.string().url().optional(),
+    demo: z.string().url().optional(),
+  }),
 });
 
 const notes = defineCollection({

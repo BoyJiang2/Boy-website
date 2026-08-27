@@ -84,6 +84,6 @@ const projects = (await getCollection('projects')).sort(byTitle);
       <div><p class="section-kicker">Projects</p><h2>项目</h2></div>
       <a href="/projects/">查看全部 →</a>
     </div>
-    <div class="project-grid">{projects.slice(0, 2).map((entry) => <ProjectCard entry={entry} />)}</div>
+    <div class="project-grid">{projects.slice(0, 2).map((entry, index) => <ProjectCard entry={entry} index={index} />)}</div>
   </section>
 </BaseLayout>

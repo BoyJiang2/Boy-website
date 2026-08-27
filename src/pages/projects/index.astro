@@ -11,5 +11,5 @@ const entries = (await getCollection('projects')).sort((a, b) => a.data.title.lo
     <h1><span class="page-title-icon" aria-hidden="true">◇</span>项目</h1>
     <p class="section-description">我正在构建、验证和持续改进的东西，以及其中做过的技术判断。</p>
   </header>
-  <section class="content-shell shell"><div class="project-grid">{entries.map((entry) => <ProjectCard entry={entry} />)}</div></section>
+  <section class="content-shell shell"><div class="project-grid">{entries.map((entry, index) => <ProjectCard entry={entry} index={index} />)}</div></section>
 </BaseLayout>

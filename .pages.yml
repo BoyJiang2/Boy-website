@@ -26,6 +26,8 @@ content:
       - { name: title, label: 项目名称, type: string }
       - { name: summary, label: 摘要, type: text }
       - { name: tags, label: 标签, type: select, options: { multiple: true, values: [Astro, MDX, AI, 系统, 工具, Content Design] } }
+      - { name: github, label: GitHub 链接, type: string, required: false }
+      - { name: demo, label: 在线体验链接, type: string, required: false }
       - { name: body, label: 正文, type: rich-text, options: { format: markdown, media: uploads, rename: true, switcher: true } }
   - name: notes
     label: 笔记

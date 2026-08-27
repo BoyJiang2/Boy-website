@@ -45,6 +45,13 @@ tags: [Transformer, Attention]
 ---
 ```
 
+项目可按需额外加入链接：
+
+```yaml
+github: https://github.com/your-name/your-project
+demo: https://your-project.example.com
+```
+
 - 文件放进内容目录后会直接公开。
 - 列表和索引按文件夹路径与标题自动排序。
 - 正文中的 `## / ### / ####` 会自动生成文章目录。

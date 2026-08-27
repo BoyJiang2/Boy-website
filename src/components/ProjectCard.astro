@@ -6,17 +6,31 @@ interface Props {
       title: string;
       summary: string;
       tags: string[];
+      github?: string;
+      demo?: string;
     };
   };
+  index?: number;
 }
-const { entry } = Astro.props;
+const { entry, index = 0 } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
 ---
 
 <article class="project-card">
-  <h3><a href={`/projects/${entry.id}/`}>{entry.data.title}</a></h3>
-  <p>{entry.data.summary}</p>
-  <div class="project-tags">{entry.data.tags.map((tag) => <span>{tag}</span>)}</div>
-  <div class="project-links">
-    <a href={`/projects/${entry.id}/`}>查看项目 →</a>
+  <div class="project-identity" aria-hidden="true">
+    <span>Selected work</span>
+    <strong>{number}</strong>
+    <i></i><i></i><i></i><i></i>
+  </div>
+  <div class="project-card-content">
+    <div class="project-status"><span></span>{entry.data.github ? 'Open source' : 'Independent project'}</div>
+    <h3><a href={`/projects/${entry.id}/`}>{entry.data.title}</a></h3>
+    <p>{entry.data.summary}</p>
+    <div class="project-tags">{entry.data.tags.map((tag) => <span>{tag}</span>)}</div>
+    <div class="project-links">
+      <a class="project-action project-action-primary" href={`/projects/${entry.id}/`}>项目详情 <span>→</span></a>
+      {entry.data.github && <a class="project-action" href={entry.data.github} target="_blank" rel="noreferrer">GitHub ↗</a>}
+      {entry.data.demo && <a class="project-action" href={entry.data.demo} target="_blank" rel="noreferrer">在线体验 ↗</a>}
+    </div>
   </div>
 </article>
