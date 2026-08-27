@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleIndex from '../../components/ArticleIndex.astro';
 import { getNoteLocation } from '../../utils/notes';
+import { formatArticleDate, getArticleWordCount } from '../../utils/article-meta';
 export async function getStaticPaths() {
   const entries = await getCollection('notes');
   return entries.map((entry) => ({ params: { slug: entry.id.split('/').at(-1) }, props: { entry, entries } }));
@@ -12,6 +13,11 @@ const { Content, headings } = await render(entry);
 const sorted = [...entries].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
 const categoryIcons: Record<string, string> = { '课程': '▤', '论文': '◈', '技术': '⌘', '工具': '✺' };
 const currentLocation = getNoteLocation(entry);
+const wordCount = getArticleWordCount(entry.body);
+const currentSeriesEntries = sorted.filter((item) => {
+  const location = getNoteLocation(item);
+  return location.category === currentLocation.category && location.series === currentLocation.series;
+});
 const categories = [...new Set(sorted.map((item) => getNoteLocation(item).category))];
 const tree = categories.map((category) => {
   const categoryEntries = sorted.filter((item) => getNoteLocation(item).category === category);
@@ -35,10 +41,21 @@ const tree = categories.map((category) => {
       <p class="page-kicker">{currentLocation.category} · {currentLocation.series}</p>
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
-      <div class="article-byline"><span>{entry.data.tags.join(' · ')}</span></div>
+      <div class="article-byline">
+        {entry.data.tags.length > 0 && <span>{entry.data.tags.join(' · ')}</span>}
+        {entry.data.published && <span class="article-meta-date" aria-label={`发表于 ${formatArticleDate(entry.data.published)}`}><span class="article-meta-icon" aria-hidden="true">◷</span><time datetime={formatArticleDate(entry.data.published)}>{formatArticleDate(entry.data.published)}</time></span>}
+        {entry.data.updated && <span class="article-meta-date" aria-label={`更新于 ${formatArticleDate(entry.data.updated)}`}><span class="article-meta-icon" aria-hidden="true">↻</span><time datetime={formatArticleDate(entry.data.updated)}>{formatArticleDate(entry.data.updated)}</time></span>}
+        <span>{wordCount} 字</span>
+      </div>
     </header>
     <div class="reading-layout">
-      <ArticleIndex title="笔记索引" icon="☘" tree={tree} headings={headings} />
+      <ArticleIndex
+        breadcrumbs={[{ label: currentLocation.category, href: '/notes/' }, { label: currentLocation.series }]}
+        context={`${currentSeriesEntries.length} 篇笔记`}
+        collectionLabel="浏览全部笔记"
+        tree={tree}
+        headings={headings}
+      />
       <div class="prose"><Content /></div>
     </div>
   </article>

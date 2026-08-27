@@ -8,14 +8,20 @@ interface Heading {
   text: string;
 }
 
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
+
 interface Props {
-  title: string;
-  icon: string;
+  breadcrumbs: Breadcrumb[];
+  context: string;
+  collectionLabel: string;
   tree: TreeNode[];
   headings: Heading[];
 }
 
-const { title, icon, tree, headings } = Astro.props;
+const { breadcrumbs, context, collectionLabel, tree, headings } = Astro.props;
 
 const outline: OutlineNode[] = [];
 const stack: OutlineNode[] = [];
@@ -28,11 +34,63 @@ for (const heading of headings.filter((item) => item.depth >= 2 && item.depth <=
 }
 ---
 
-<aside class="article-index" aria-label={`${title}与本篇目录`}>
-  <div class="index-heading"><span aria-hidden="true">{icon}</span><strong>{title}</strong></div>
-  <nav aria-label={title}><ContentTree nodes={tree} /></nav>
-  <div class="page-outline">
+<aside class="article-index" aria-label="阅读导航" data-article-index>
+  <section class="article-location" aria-label="当前位置">
+    <div class="index-heading"><span aria-hidden="true">☘</span><strong>你在这里</strong></div>
+    <p class="breadcrumb-line">
+      {breadcrumbs.map((breadcrumb, index) => (
+        <>
+          {index > 0 && <span class="breadcrumb-separator" aria-hidden="true">/</span>}
+          {breadcrumb.href ? <a href={breadcrumb.href}>{breadcrumb.label}</a> : <span>{breadcrumb.label}</span>}
+        </>
+      ))}
+    </p>
+    <p class="location-meta">{context}</p>
+  </section>
+  <section class="page-outline" aria-label="本篇目录">
     <div class="index-heading small"><span aria-hidden="true">⌁</span><strong>本篇目录</strong></div>
     {outline.length > 0 ? <OutlineTree nodes={outline} /> : <p>这一篇很短，慢慢读就好。</p>}
-  </div>
+  </section>
+  <details class="all-content-tree">
+    <summary>{collectionLabel}</summary>
+    <nav aria-label={collectionLabel}><ContentTree nodes={tree} /></nav>
+  </details>
 </aside>
+
+<script>
+  const initializeArticleIndexes = () => {
+    document.querySelectorAll<HTMLElement>('[data-article-index]').forEach((index) => {
+      if (index.dataset.scrollLinked) return;
+      index.dataset.scrollLinked = 'true';
+
+      const links = [...index.querySelectorAll<HTMLAnchorElement>('.outline-tree a')];
+      const headingElements = links
+        .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+        .filter((heading): heading is HTMLElement => Boolean(heading));
+      if (!headingElements.length) return;
+
+      const setActive = (id: string) => links.forEach((link) => {
+        const isActive = decodeURIComponent(link.hash.slice(1)) === id;
+        link.classList.toggle('is-active', isActive);
+        if (isActive) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+      const syncActiveHeading = () => {
+        const marker = window.innerHeight * 0.3;
+        const current = headingElements.reduce((active, heading) => (
+          heading.getBoundingClientRect().top <= marker ? heading : active
+        ), headingElements[0]);
+        setActive(current.id);
+      };
+      const observer = new IntersectionObserver(syncActiveHeading, { rootMargin: '-30% 0px -55% 0px' });
+      headingElements.forEach((heading) => observer.observe(heading));
+      window.addEventListener('scroll', syncActiveHeading, { passive: true });
+      window.addEventListener('resize', syncActiveHeading);
+      syncActiveHeading();
+    });
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeArticleIndexes);
+  else initializeArticleIndexes();
+  document.addEventListener('astro:page-load', initializeArticleIndexes);
+</script>

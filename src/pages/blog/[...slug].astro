@@ -2,12 +2,14 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleIndex from '../../components/ArticleIndex.astro';
+import { formatArticleDate, getArticleWordCount } from '../../utils/article-meta';
 export async function getStaticPaths() {
   return (await getCollection('blog')).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const entries = (await getCollection('blog')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'zh-CN'));
+const wordCount = getArticleWordCount(entry.body);
 const tree = [{
   label: '全部文章',
   icon: '✦',
@@ -26,10 +28,21 @@ const tree = [{
     <header class="article-header">
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
-      <div class="article-byline"><span>{entry.data.tags.join(' · ')}</span></div>
+      <div class="article-byline">
+        {entry.data.tags.length > 0 && <span>{entry.data.tags.join(' · ')}</span>}
+        {entry.data.published && <span class="article-meta-date" aria-label={`发表于 ${formatArticleDate(entry.data.published)}`}><span class="article-meta-icon" aria-hidden="true">◷</span><time datetime={formatArticleDate(entry.data.published)}>{formatArticleDate(entry.data.published)}</time></span>}
+        {entry.data.updated && <span class="article-meta-date" aria-label={`更新于 ${formatArticleDate(entry.data.updated)}`}><span class="article-meta-icon" aria-hidden="true">↻</span><time datetime={formatArticleDate(entry.data.updated)}>{formatArticleDate(entry.data.updated)}</time></span>}
+        <span>{wordCount} 字</span>
+      </div>
     </header>
     <div class="reading-layout">
-      <ArticleIndex title="博客索引" icon="✦" tree={tree} headings={headings} />
+      <ArticleIndex
+        breadcrumbs={[{ label: '博客', href: '/blog/' }, { label: '所思所想' }]}
+        context={`${entries.length} 篇文章`}
+        collectionLabel="浏览全部博客"
+        tree={tree}
+        headings={headings}
+      />
       <div class="prose"><Content /></div>
     </div>
   </article>
