@@ -2,6 +2,7 @@
 title: "FlashAttention: Fast and Memory-Efficient Exact Attention"
 summary: 通过分块与在线 softmax 减少 HBM 读写，在不近似 Attention 的前提下提升训练速度。
 tags: [Attention, GPU, IO-Aware]
+published: 2026-08-18
 ---
 
 ## 问题不在 FLOPs

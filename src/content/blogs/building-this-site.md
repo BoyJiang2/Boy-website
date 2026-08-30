@@ -2,6 +2,7 @@
 title: 从收藏夹到自己的知识花园
 summary: 为什么选择 Markdown、Astro 和一个自己完全拥有的内容仓库。
 tags: [Astro, Markdown, 工作流]
+published: 2026-08-21
 ---
 
 收藏内容很容易，形成自己的知识结构却很难。这个网站尝试让写作足够轻，同时让内容可以长期迁移。

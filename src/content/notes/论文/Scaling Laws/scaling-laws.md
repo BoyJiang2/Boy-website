@@ -2,6 +2,7 @@
 title: Scaling Laws for Neural Language Models
 summary: 用经验幂律描述模型、数据与计算量如何共同影响语言模型损失。
 tags: [Scaling, LLM, Empirical Study]
+published: 2026-08-20
 ---
 
 ## 阅读前的问题

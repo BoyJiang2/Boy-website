@@ -2,6 +2,8 @@
 title: Attention Is All You Need
 summary: 用自注意力替代循环与卷积，让序列模型获得并行训练能力与更短的信息路径。
 tags: [Transformer, Attention, NLP]
+published: 2026-08-16
+updated: 2026-08-20
 ---
 
 ## 它改变了什么
