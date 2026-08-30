@@ -400,6 +400,7 @@ img { max-width: 100%; height: auto; }
 .global-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 .search-results { border-top: 1px solid var(--line); }
 .search-result { display: grid; grid-template-columns: 42px minmax(0, 1fr) 24px; gap: 17px; align-items: start; padding: 25px 4px; border-bottom: 1px solid var(--line); }
+.search-results[hidden], .search-result[hidden] { display: none !important; }
 .search-result:hover { background: var(--panel-hover); }
 .search-result-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); }
 .search-result p { margin: 0 0 3px; color: var(--muted); font-size: .7rem; }
