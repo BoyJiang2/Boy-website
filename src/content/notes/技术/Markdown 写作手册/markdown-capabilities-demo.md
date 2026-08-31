@@ -67,6 +67,16 @@ const describe = (note: Note) => `${note.title} · ${note.tags.join(' / ')}`;
 
 图片前后的正文、标题和目录可以自然排列。替换图片时，只需要把文件上传到附件目录，然后复制生成的路径。
 
+## Mermaid 图表
+
+```mermaid
+flowchart LR
+  A[写下想法] --> B[整理为笔记]
+  B --> C[公开发布]
+  C --> D[获得反馈]
+  D --> A
+```
+
 ## 链接与列表
 
 - [返回全部笔记](/notes/)

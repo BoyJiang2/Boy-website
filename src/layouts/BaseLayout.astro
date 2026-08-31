@@ -17,29 +17,41 @@ const primaryNav = [
   { href: '/notes/', label: '笔记' },
   { href: '/projects/', label: '项目' },
 ];
-const themes = [
-  { value: 'midnight-gold', label: 'Midnight Gold' },
-  { value: 'professional-dark', label: 'Professional Dark' },
-  { value: 'glassmorphism-light', label: 'Glassmorphism Light' },
-  { value: 'dark-neon', label: 'Dark Neon' },
+const themeGroups = [
+  {
+    label: '浅色',
+    themes: [
+      { value: 'pure-white', label: 'Pure White' },
+      { value: 'midnight-gold', label: 'Midnight Gold' },
+      { value: 'glassmorphism-light', label: 'Glassmorphism Light' },
+    ],
+  },
+  {
+    label: '深色',
+    themes: [
+      { value: 'professional-dark', label: 'Professional Dark' },
+      { value: 'pure-black', label: 'Pure Black' },
+      { value: 'dark-neon', label: 'Dark Neon' },
+    ],
+  },
 ];
 ---
 
 <!doctype html>
-<html lang="zh-CN" data-theme="midnight-gold">
+<html lang="zh-CN" data-theme="pure-white">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f4f1ea" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/png" href="/brand/site-icon-white.png" />
     <link rel="apple-touch-icon" href="/brand/site-icon-white.png" />
     <title>{title}</title>
     <script is:inline>
       try {
-        const saved = localStorage.getItem('boy-jiang-theme');
-        const allowed = ['midnight-gold', 'professional-dark', 'glassmorphism-light', 'dark-neon'];
-        if (saved && allowed.includes(saved)) document.documentElement.dataset.theme = saved;
+        const saved = localStorage.getItem('boy-jiang-theme-v2');
+        const allowed = ['pure-white', 'midnight-gold', 'professional-dark', 'glassmorphism-light', 'dark-neon', 'pure-black'];
+        document.documentElement.dataset.theme = saved && allowed.includes(saved) ? saved : 'pure-white';
       } catch {}
     </script>
   </head>
@@ -74,12 +86,17 @@ const themes = [
           </summary>
           <div class="theme-panel">
             <p>选择阅读氛围</p>
-            {themes.map((theme) => (
-              <button type="button" data-theme-value={theme.value}>
-                <span class={`theme-swatch ${theme.value}`} aria-hidden="true"></span>
-                <strong>{theme.label}</strong>
-                <span class="theme-check" aria-hidden="true">✓</span>
-              </button>
+            {themeGroups.map((group) => (
+              <div class="theme-group" role="group" aria-label={`${group.label}主题`}>
+                <span class="theme-group-label">{group.label}</span>
+                {group.themes.map((theme) => (
+                  <button type="button" data-theme-value={theme.value}>
+                    <span class={`theme-swatch ${theme.value}`} aria-hidden="true"></span>
+                    <strong>{theme.label}</strong>
+                    <span class="theme-check" aria-hidden="true">✓</span>
+                  </button>
+                ))}
+              </div>
             ))}
           </div>
         </details>
@@ -98,18 +115,21 @@ const themes = [
       const themeButtons = [...document.querySelectorAll('[data-theme-value]')];
       const themeColor = document.querySelector('meta[name="theme-color"]');
       const themeColors = {
+        'pure-white': '#ffffff',
         'midnight-gold': '#f4f1ea',
         'professional-dark': '#18191c',
         'glassmorphism-light': '#eaf1f8',
         'dark-neon': '#07090d',
+        'pure-black': '#000000',
       };
       const setTheme = (theme) => {
         document.documentElement.dataset.theme = theme;
-        themeColor?.setAttribute('content', themeColors[theme] || themeColors['midnight-gold']);
+        themeColor?.setAttribute('content', themeColors[theme] || themeColors['pure-white']);
         themeButtons.forEach((button) => button.classList.toggle('selected', button.dataset.themeValue === theme));
-        try { localStorage.setItem('boy-jiang-theme', theme); } catch {}
+        try { localStorage.setItem('boy-jiang-theme-v2', theme); } catch {}
+        document.dispatchEvent(new CustomEvent('boy-jiang:theme-change'));
       };
-      setTheme(document.documentElement.dataset.theme || 'midnight-gold');
+      setTheme(document.documentElement.dataset.theme || 'pure-white');
       themeButtons.forEach((button) => button.addEventListener('click', () => {
         setTheme(button.dataset.themeValue);
         themePicker?.removeAttribute('open');
@@ -121,5 +141,6 @@ const themes = [
         if (event.key === 'Escape') themePicker?.removeAttribute('open');
       });
     </script>
+    <script src="../scripts/mermaid.ts"></script>
   </body>
 </html>

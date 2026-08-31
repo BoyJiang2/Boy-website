@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EntryRow from '../components/EntryRow.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -9,6 +9,8 @@ const byTitle = <T extends { data: { title: string } }>(a: T, b: T) => a.data.ti
 const blogs = (await getCollection('blog')).sort(byTitle);
 const notes = (await getCollection('notes')).sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
 const projects = (await getCollection('projects')).sort(byTitle);
+const about = await getEntry('about', 'me');
+if (!about) throw new Error('Missing About Me content at src/content/about/me.mdx');
 ---
 
 <BaseLayout>
@@ -53,6 +55,16 @@ const projects = (await getCollection('projects')).sort(byTitle);
       })();
     }
   </script>
+
+  <section class="home-section shell">
+    <div class="section-head">
+      <div><p class="section-kicker">About Me</p><h2>关于我</h2></div>
+      <a href="/about/">了解更多 →</a>
+    </div>
+    <div class="entry-list">
+      <EntryRow href="/about/" title={about.data.title} summary={about.data.summary} tags={about.data.tags} />
+    </div>
+  </section>
 
   <section class="home-section shell">
     <div class="section-head">

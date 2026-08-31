@@ -8,20 +8,13 @@ interface Heading {
   text: string;
 }
 
-interface Breadcrumb {
-  label: string;
-  href?: string;
-}
-
 interface Props {
-  breadcrumbs: Breadcrumb[];
-  context: string;
   collectionLabel: string;
   tree: TreeNode[];
   headings: Heading[];
 }
 
-const { breadcrumbs, context, collectionLabel, tree, headings } = Astro.props;
+const { collectionLabel, tree, headings } = Astro.props;
 
 const outline: OutlineNode[] = [];
 const stack: OutlineNode[] = [];
@@ -34,34 +27,57 @@ for (const heading of headings.filter((item) => item.depth >= 2 && item.depth <=
 }
 ---
 
-<aside class="article-index" aria-label="阅读导航" data-article-index>
-  <section class="article-location" aria-label="当前位置">
-    <div class="index-heading"><span aria-hidden="true">☘</span><strong>你在这里</strong></div>
-    <p class="breadcrumb-line">
-      {breadcrumbs.map((breadcrumb, index) => (
-        <>
-          {index > 0 && <span class="breadcrumb-separator" aria-hidden="true">/</span>}
-          {breadcrumb.href ? <a href={breadcrumb.href}>{breadcrumb.label}</a> : <span>{breadcrumb.label}</span>}
-        </>
-      ))}
-    </p>
-    <p class="location-meta">{context}</p>
-  </section>
-  <section class="page-outline" aria-label="本篇目录">
-    <div class="index-heading small"><span aria-hidden="true">⌁</span><strong>本篇目录</strong></div>
-    {outline.length > 0 ? <OutlineTree nodes={outline} /> : <p>这一篇很短，慢慢读就好。</p>}
-  </section>
-  <details class="all-content-tree">
-    <summary>{collectionLabel}</summary>
-    <nav aria-label={collectionLabel}><ContentTree nodes={tree} /></nav>
-  </details>
-</aside>
+<div class="article-index-rail" data-article-index-rail>
+  <button
+    class="article-index-toggle"
+    type="button"
+    aria-label="收起目录"
+    aria-expanded="true"
+    aria-controls="article-index-content"
+    data-article-index-toggle
+    data-tooltip="收起目录"
+  >
+    <svg class="article-index-toggle-collapse" viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 5-7 7 7 7M20 5l-7 7 7 7" /></svg>
+    <svg class="article-index-toggle-expand" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 12h12M4 19h8" /></svg>
+  </button>
+  <aside id="article-index-content" class="article-index" aria-label="阅读导航" data-article-index>
+    <section class="page-outline" aria-label="本篇目录">
+      <div class="index-heading small"><span aria-hidden="true">⌁</span><strong>本篇目录</strong></div>
+      {outline.length > 0 ? <OutlineTree nodes={outline} /> : <p>这一篇很短，慢慢读就好。</p>}
+    </section>
+    <details class="all-content-tree">
+      <summary>{collectionLabel}</summary>
+      <nav aria-label={collectionLabel}><ContentTree nodes={tree} /></nav>
+    </details>
+  </aside>
+</div>
 
 <script>
+  const indexCollapseStorageKey = 'boy-jiang-article-index-collapsed-v1';
+
   const initializeArticleIndexes = () => {
-    document.querySelectorAll<HTMLElement>('[data-article-index]').forEach((index) => {
-      if (index.dataset.scrollLinked) return;
-      index.dataset.scrollLinked = 'true';
+    document.querySelectorAll<HTMLElement>('[data-article-index-rail]').forEach((rail) => {
+      if (rail.dataset.scrollLinked) return;
+      rail.dataset.scrollLinked = 'true';
+
+      const index = rail.querySelector<HTMLElement>('[data-article-index]');
+      const toggle = rail.querySelector<HTMLButtonElement>('[data-article-index-toggle]');
+      if (!index || !toggle) return;
+
+      const setCollapsed = (collapsed: boolean) => {
+        rail.dataset.collapsed = String(collapsed);
+        const label = collapsed ? '展开目录' : '收起目录';
+        toggle.setAttribute('aria-label', label);
+        toggle.setAttribute('aria-expanded', String(!collapsed));
+        toggle.dataset.tooltip = label;
+      };
+
+      try { setCollapsed(localStorage.getItem(indexCollapseStorageKey) === 'true'); } catch { setCollapsed(false); }
+      toggle.addEventListener('click', () => {
+        const collapsed = rail.dataset.collapsed !== 'true';
+        setCollapsed(collapsed);
+        try { localStorage.setItem(indexCollapseStorageKey, String(collapsed)); } catch {}
+      });
 
       const links = [...index.querySelectorAll<HTMLAnchorElement>('.outline-tree a')];
       const headingElements = links

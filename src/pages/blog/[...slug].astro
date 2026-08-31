@@ -23,7 +23,7 @@ const tree = [{
 ---
 
 <BaseLayout title={`${entry.data.title} — Boy Jiang`} description={entry.data.summary}>
-  <article class="article-wrap">
+  <article class="article-wrap reading-article">
     <a class="article-back" href="/blog/">← 返回博客</a>
     <header class="article-header">
       <h1>{entry.data.title}</h1>
@@ -37,8 +37,6 @@ const tree = [{
     </header>
     <div class="reading-layout">
       <ArticleIndex
-        breadcrumbs={[{ label: '博客', href: '/blog/' }, { label: '所思所想' }]}
-        context={`${entries.length} 篇文章`}
         collectionLabel="浏览全部博客"
         tree={tree}
         headings={headings}

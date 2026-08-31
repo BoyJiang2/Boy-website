@@ -1,24 +1,27 @@
 ---
+import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const entry = await getEntry('about', 'me');
+if (!entry) throw new Error('Missing About Me content at src/content/about/me.mdx');
+const { Content } = await render(entry);
 ---
 
-<BaseLayout title="关于 — Boy Jiang" description="关于 Boy Jiang 与这个网站。">
+<BaseLayout title={`${entry.data.title} — Boy Jiang`} description={entry.data.summary}>
   <header class="page-head shell"><p class="page-kicker">About</p><h1><span class="page-title-icon" aria-hidden="true">☻</span>关于</h1></header>
   <section class="about-grid shell">
     <aside class="about-aside">
       <div class="about-avatar">BJ</div>
-      <strong>Boy Jiang</strong>
-      <p>Computer Science student & builder</p>
-      <div class="about-links"><a href="https://github.com/BoyJiang2">GitHub ↗</a></div>
+      <strong>{entry.data.name}</strong>
+      <p>{entry.data.role}</p>
+      {entry.data.github && <div class="about-links"><a href={entry.data.github}>GitHub ↗</a></div>}
     </aside>
     <div class="about-copy">
-      <h2>你好</h2>
-      <p>我是 Boy Jiang。我关心计算机系统、大模型训练与推理，也喜欢把复杂问题拆成可以验证的小问题。</p>
-      <p>这个网站是我的公开工作台：博客记录所思所想，项目保存实践，笔记沉淀课程、论文与技术学习。</p>
-      <h2>为什么公开写作</h2>
-      <p>公开写作迫使我把“感觉懂了”变成可以解释、可以质疑的文字。文章会持续修订，未完成的思考也会被诚实地保留下来。</p>
-      <h2>联系</h2>
-      <div class="about-links"><a href="mailto:2352027372@qq.com">Email ↗</a><a href="https://github.com/BoyJiang2">GitHub ↗</a></div>
+      <Content />
+      {(entry.data.email || entry.data.github) && <div class="about-links">
+        {entry.data.email && <a href={`mailto:${entry.data.email}`}>Email ↗</a>}
+        {entry.data.github && <a href={entry.data.github}>GitHub ↗</a>}
+      </div>}
     </div>
   </section>
 </BaseLayout>
