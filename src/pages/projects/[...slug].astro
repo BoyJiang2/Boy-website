@@ -16,12 +16,9 @@ const { Content } = await render(entry);
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
       <div class="article-byline"><span>{entry.data.tags.join(' · ')}</span></div>
-      {(entry.data.github || entry.data.demo) && (
-        <div class="project-detail-links">
-          {entry.data.github && <a class="project-action project-action-primary" href={entry.data.github} target="_blank" rel="noreferrer">GitHub ↗</a>}
-          {entry.data.demo && <a class="project-action" href={entry.data.demo} target="_blank" rel="noreferrer">在线体验 ↗</a>}
-        </div>
-      )}
+      <div class="project-detail-links">
+        <a class="project-action project-action-primary" href={entry.data.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
     </header>
     <div class="docs-layout" style="grid-template-columns: minmax(0, 710px); justify-content: center;"><div class="prose"><Content /></div></div>
   </article>

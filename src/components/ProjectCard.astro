@@ -6,32 +6,25 @@ interface Props {
       title: string;
       summary: string;
       tags: string[];
-      github?: string;
-      demo?: string;
+      github: string;
     };
   };
   index?: number;
 }
 const { entry, index = 0 } = Astro.props;
 const number = String(index + 1).padStart(2, '0');
-const externalUrl = entry.data.github ?? entry.data.demo;
-const href = externalUrl ?? `/projects/${entry.id}/`;
-const sourceLabel = entry.data.github ? 'GitHub' : entry.data.demo ? '在线体验' : '项目详情';
-const ariaLabel = externalUrl
-  ? `在新标签页打开 ${entry.data.title} 的${sourceLabel}`
-  : `查看 ${entry.data.title} 的项目详情`;
+const ariaLabel = `在新标签页打开 ${entry.data.title} 的 GitHub`;
 ---
 
 <article class="project-source-item">
-  <a class="project-source-card" href={href} target={externalUrl ? '_blank' : undefined} rel={externalUrl ? 'noreferrer' : undefined} aria-label={ariaLabel}>
+  <a class="project-source-card" href={entry.data.github} target="_blank" rel="noreferrer" aria-label={ariaLabel}>
     <span class="project-source-number" aria-hidden="true">{number}</span>
     <div class="project-source-content">
-      <p class="project-source-kind">{entry.data.github ? '开源项目' : entry.data.demo ? '在线项目' : '项目记录'}</p>
       <h3>{entry.data.title}</h3>
       <p class="project-source-summary">{entry.data.summary}</p>
       {entry.data.tags.length > 0 && <div class="project-source-tags" aria-label="技术标签">{entry.data.tags.map((tag) => <span>{tag}</span>)}</div>}
     </div>
-    <span class="project-source-link">{sourceLabel} <span aria-hidden="true">↗</span></span>
+    <span class="project-source-link">GitHub <span aria-hidden="true">↗</span></span>
   </a>
 </article>
 
@@ -42,11 +35,10 @@ const ariaLabel = externalUrl
 
   .project-source-card {
     display: grid;
-    grid-template-columns: 66px minmax(0, 1fr) max-content;
-    gap: 24px;
+    grid-template-columns: 54px minmax(0, 1fr) max-content;
+    gap: 20px;
     align-items: start;
-    min-height: 210px;
-    padding: 30px 32px;
+    padding: 26px 28px;
     border: 1px solid var(--line);
     border-radius: 16px;
     background: var(--surface);
@@ -72,15 +64,6 @@ const ariaLabel = externalUrl
     min-width: 0;
   }
 
-  .project-source-kind {
-    margin: 1px 0 10px;
-    color: var(--muted);
-    font-size: .69rem;
-    font-weight: 740;
-    letter-spacing: .11em;
-    text-transform: uppercase;
-  }
-
   .project-source-card h3 {
     margin: 0;
     color: var(--ink);
@@ -90,7 +73,7 @@ const ariaLabel = externalUrl
 
   .project-source-summary {
     max-width: 620px;
-    margin: 11px 0 0;
+    margin: 10px 0 0;
     color: var(--muted);
     font-size: .91rem;
   }
@@ -99,7 +82,7 @@ const ariaLabel = externalUrl
     display: flex;
     flex-wrap: wrap;
     gap: 7px;
-    margin-top: 22px;
+    margin-top: 18px;
   }
 
   .project-source-tags span {

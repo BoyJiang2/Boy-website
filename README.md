@@ -45,13 +45,6 @@ tags: [Transformer, Attention]
 ---
 ```
 
-项目可按需额外加入链接：
-
-```yaml
-github: https://github.com/your-name/your-project
-demo: https://your-project.example.com
-```
-
 - 文件放进内容目录后会直接公开。
 - 列表和索引按文件夹路径与标题自动排序。
 - 正文中的 `## / ### / ####` 会自动生成文章目录。
@@ -62,6 +55,29 @@ demo: https://your-project.example.com
 ```md
 ![图片说明](/uploads/example.png)
 [下载 PDF](/uploads/example.pdf)
+```
+
+### 新增项目
+
+1. 在 `src/content/projects/` 新建一个 `.md` 文件，例如 `my-project.md`。
+2. 填入最小 frontmatter。项目卡片会直接打开这里的 GitHub 链接：
+
+```yaml
+---
+title: My Project
+summary: 用一句话说明这个项目解决了什么问题。
+tags: [Astro, TypeScript]
+github: https://github.com/your-name/my-project
+---
+```
+
+3. 本地构建通过后提交并推送；已连接的 Cloudflare 会随 `main` 分支更新自动部署：
+
+```bash
+npm run build
+git add src/content/projects/my-project.md
+git commit -m "Add my project"
+git push origin main
 ```
 
 ## 在线编辑
