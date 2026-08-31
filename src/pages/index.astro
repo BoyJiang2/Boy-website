@@ -58,16 +58,6 @@ if (!about) throw new Error('Missing About Me content at src/content/about/me.md
 
   <section class="home-section shell">
     <div class="section-head">
-      <div><p class="section-kicker">About Me</p><h2>关于我</h2></div>
-      <a href="/about/">了解更多 →</a>
-    </div>
-    <div class="entry-list">
-      <EntryRow href="/about/" title={about.data.title} summary={about.data.summary} tags={about.data.tags} />
-    </div>
-  </section>
-
-  <section class="home-section shell">
-    <div class="section-head">
       <div><p class="section-kicker">Blogs</p><h2>博客</h2></div>
       <a href="/blog/">查看全部 →</a>
     </div>
@@ -97,5 +87,15 @@ if (!about) throw new Error('Missing About Me content at src/content/about/me.md
       <a href="/projects/">查看全部 →</a>
     </div>
     <div class="project-grid">{projects.slice(0, 2).map((entry, index) => <ProjectCard entry={entry} index={index} />)}</div>
+  </section>
+
+  <section class="home-section shell">
+    <div class="section-head">
+      <div><p class="section-kicker">About Me</p><h2>关于我</h2></div>
+      <a href="/about/">了解更多 →</a>
+    </div>
+    <div class="entry-list">
+      <EntryRow href="/about/" title={about.data.title} summary={about.data.summary} tags={about.data.tags} />
+    </div>
   </section>
 </BaseLayout>
