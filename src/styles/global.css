@@ -451,7 +451,7 @@ img { max-width: 100%; height: auto; }
 .prose blockquote { margin: 1.7em 0; padding: 13px 18px; border-left: 3px solid var(--accent); background: var(--quote-bg); color: var(--body-ink); }
 .prose blockquote p { margin: 0; }
 .prose code { padding: .16em .38em; border-radius: 4px; background: var(--code-bg); color: var(--body-ink); font: .86em var(--mono); }
-.prose strong code { padding: 0; background: transparent; color: currentColor; font: inherit; font-weight: 700; }
+.prose strong code { font-weight: 700; }
 .prose pre { overflow: auto; padding: 19px 21px; border: 1px solid var(--line); border-radius: 9px; }
 .prose pre code { padding: 0; background: none; color: inherit; }
 .prose .mermaid { overflow-x: auto; margin: 1.8em 0; padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); text-align: center; }
