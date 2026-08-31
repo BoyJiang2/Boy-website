@@ -4,7 +4,7 @@ summary: 对个人未来研究生学习生涯的规划。我能做到什么与�
 tags: [学习, 科研, 个人成长]
 ---
 
-# 自我修养
+# 引言
 
 本文受到张岩峰教授《[一名研究生的自我修养](https://faculty.neu.edu.cn/zhangyf/zh_CN/article/39663/content/1652.htm)》一文启发。
 
