@@ -459,12 +459,12 @@ img { max-width: 100%; height: auto; }
 .prose th, .prose td { padding: 9px 12px; border: 1px solid var(--line); text-align: left; white-space: nowrap; }
 .prose th { background: var(--surface-soft); }
 .prose img { display: block; margin: 1.8em auto; border-radius: 8px; }
-.prose hr { border: 0; border-top: 1px solid var(--line); margin: 1em 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: .45em 0; }
 .prose hr + h1,
 .prose hr + h2,
 .prose hr + h3,
 .prose hr + h4,
-.prose hr + h5 { margin-top: .9em; }
+.prose hr + h5 { margin-top: .55em; }
 
 .search-page { min-height: 65vh; padding-top: 96px; }
 .global-search { max-width: 720px; margin: 0 auto 48px; }
