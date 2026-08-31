@@ -439,6 +439,7 @@ img { max-width: 100%; height: auto; }
 .prose > :first-child { margin-top: 0; }
 .prose h2, .prose h3, .prose h4 { color: var(--ink); font-family: var(--serif); font-weight: 550; line-height: 1.28; letter-spacing: -.025em; scroll-margin-top: 30px; }
 .prose h2 { margin: 2.4em 0 .8em; font-size: 1.85rem; }
+.prose h1 + h2 { margin-top: .55em; }
 .prose h3 { margin: 2em 0 .65em; font-size: 1.38rem; }
 .prose p, .prose li { color: var(--body-ink); }
 .prose a { color: var(--accent); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
