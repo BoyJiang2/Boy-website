@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^4.0.7",
+    "@types/node": "^26.4.0",
     "astro": "^5.13.0",
     "katex": "^0.18.4",
     "rehype-katex": "^7.0.1",

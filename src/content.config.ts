@@ -7,14 +7,9 @@ const shared = {
   tags: z.array(z.string()).default([]),
 };
 
-const articleMeta = {
-  published: z.coerce.date().optional(),
-  updated: z.coerce.date().optional(),
-};
-
 const blog = defineCollection({
   loader: glob({ base: './src/content/blogs', pattern: '**/*.{md,mdx}' }),
-  schema: z.object({ ...shared, ...articleMeta }),
+  schema: z.object(shared),
 });
 
 const projects = defineCollection({
@@ -27,7 +22,7 @@ const projects = defineCollection({
 
 const notes = defineCollection({
   loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
-  schema: z.object({ ...shared, ...articleMeta }),
+  schema: z.object(shared),
 });
 
 const about = defineCollection({

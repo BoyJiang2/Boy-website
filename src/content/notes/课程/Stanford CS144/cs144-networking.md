@@ -2,8 +2,6 @@
 title: 从字节流到可靠传输
 summary: 把 TCP 看作一组可组合的状态机，而不是一堆 API。
 tags: [网络, TCP, 系统]
-published: 2026-08-10
-updated: 2026-08-21
 ---
 
 ## 这门课真正要回答的问题

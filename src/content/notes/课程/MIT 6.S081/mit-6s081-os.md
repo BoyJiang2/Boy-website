@@ -2,7 +2,6 @@
 title: 用 xv6 理解操作系统
 summary: 在小型真实内核里追踪进程、虚拟内存与文件系统如何协作。
 tags: [操作系统, xv6, RISC-V]
-published: 2026-08-14
 ---
 
 ## 为什么是 xv6
