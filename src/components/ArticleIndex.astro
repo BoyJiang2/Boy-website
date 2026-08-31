@@ -18,7 +18,7 @@ const { collectionLabel, tree, headings } = Astro.props;
 
 const outline: OutlineNode[] = [];
 const stack: OutlineNode[] = [];
-for (const heading of headings.filter((item) => item.depth >= 2 && item.depth <= 4)) {
+for (const heading of headings.filter((item) => item.depth >= 1 && item.depth <= 5)) {
   const node: OutlineNode = { ...heading, children: [] };
   while (stack.length && stack.at(-1)!.depth >= node.depth) stack.pop();
   if (stack.length) stack.at(-1)!.children.push(node);
