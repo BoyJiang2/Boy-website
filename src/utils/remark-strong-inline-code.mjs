@@ -20,6 +20,29 @@ function wrapInlineCodeInStrong(node) {
   node.children.forEach(wrapInlineCodeInStrong);
 }
 
+function wrapTextInStrong(node) {
+  if (!Array.isArray(node.children)) return;
+
+  node.children = node.children.flatMap((child) => {
+    if (child.type !== 'text' || !child.value.includes('**')) return [child];
+
+    return child.value
+      .split(/(\*\*[^*\n]+?\*\*)/g)
+      .filter(Boolean)
+      .map((part) => {
+        const match = /^\*\*([^*\n]+)\*\*$/.exec(part);
+        return match
+          ? { type: 'strong', children: [{ type: 'text', value: match[1] }] }
+          : { type: 'text', value: part };
+      });
+  });
+
+  node.children.forEach(wrapTextInStrong);
+}
+
 export default function remarkStrongInlineCode() {
-  return (tree) => wrapInlineCodeInStrong(tree);
+  return (tree) => {
+    wrapInlineCodeInStrong(tree);
+    wrapTextInStrong(tree);
+  };
 }
