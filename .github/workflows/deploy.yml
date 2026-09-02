@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.repository == 'BoyJiang2/boyJiang2.github.io'
     runs-on: ubuntu-latest
     env:
       ASTRO_SITE: https://boyjiang2.github.io
@@ -26,6 +27,7 @@ jobs:
         uses: withastro/action@v5
 
   deploy:
+    if: github.repository == 'BoyJiang2/boyJiang2.github.io'
     needs: build
     runs-on: ubuntu-latest
     environment:
