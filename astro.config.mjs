@@ -7,7 +7,7 @@ import remarkStrongInlineCode from './src/utils/remark-strong-inline-code.mjs';
 const remarkPlugins = [remarkMath, remarkStrongInlineCode];
 
 export default defineConfig({
-  site: 'https://boy-website.boyjiang2.workers.dev',
+  site: process.env.ASTRO_SITE ?? 'https://boy-website.boyjiang2.workers.dev',
   integrations: [mdx()],
   markdown: {
     remarkPlugins,
