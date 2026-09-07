@@ -485,10 +485,10 @@ img { max-width: 100%; height: auto; }
 .search-result h2 a:hover { color: var(--accent); }
 .search-result h2 + div { color: var(--muted); font-size: .84rem; }
 
-.about-grid { display: grid; grid-template-columns: .75fr 1.4fr; gap: 80px; padding-bottom: 100px; }
-.about-aside { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); height: fit-content; }
+.about-grid { padding-bottom: 100px; }
+.about-aside { width: min(100%, 360px); margin-top: 48px; padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
 .about-aside p { color: var(--muted); font-size: .88rem; }
-.about-copy { font-size: 1.02rem; }
+.about-copy { max-width: 820px; font-size: 1.02rem; }
 .about-copy h2 { margin: 1.8em 0 .4em; font: 500 1.75rem var(--serif); }
 .about-copy h2:first-child { margin-top: 0; }
 .about-links { display: flex; flex-wrap: wrap; gap: 16px; color: var(--accent); }
@@ -536,7 +536,6 @@ img { max-width: 100%; height: auto; }
   .entry-row { grid-template-columns: 1fr 22px; gap: 14px; }
   .entry-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
   .project-grid { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .prose { padding: 24px 0 40px; }
   .search-result { grid-template-columns: 36px minmax(0, 1fr) 18px; gap: 12px; }
   .search-result-icon { width: 34px; height: 34px; }
