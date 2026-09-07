@@ -1,78 +1,22 @@
 ---
 title: About Me
 summary: 中国科学院大学硕士生，聚焦大模型应用、推理系统与工程实践。
-tags: [大模型, RAG, 推理系统, 工程实践]
+tags: [MLSys, LLM 推理, 实践]
 name: 蒋博睿
-role: 中国科学院大学硕士生 · AI 系统与工程实践
+role: 中国科学院大学
 github: https://github.com/BoyJiang2
 email: elboy@foxmail.com
 ---
 
-## 个人概述
+# 个人概述
 
-我是蒋博睿，目前就读于中国科学院大学上海微系统与信息技术研究所，关注大模型应用、推理系统与工程实践。我的经历覆盖 RAG、模型微调、推理优化和通信软件开发；希望持续把对底层原理的理解转化为可靠的工程能力。
+👋 你好，我是蒋博睿！目前就读于中国科学院大学上海微系统与信息技术研究所硕士二年级。关注MLSys和LLM Serving方向的前沿应用。
 
-## 教育背景
+# 科研成果
 
-**中国科学院大学 · 上海微系统与信息技术研究所**<br />
-通信与信息系统 · 硕士 · 2025.09 - 至今
-
-主要课程包括计算机视觉、GPU 并行计算、高级数据库系统等。
-
-**重庆邮电大学 · 通信与信息工程学院**<br />
-数字媒体技术 · 本科 · 2020.09 - 2024.06
-
-主要课程包括算法设计与分析、机器学习、数字图像处理、C++ 程序设计、信号与系统等。
-
-## 工作经历
-
-### 华为技术有限公司 · 公共小区管理开发部 · 软件开发工程师
-
-2025.01 - 2025.08
-
-- 参与基站侧核心业务逻辑开发，负责基站测参数与 OCL 相关定制化需求。
-- 使用“天网”分析系统解析一线采集日志，定位对应组件并推进问题闭环，累计完成 4 项关键质量问题整改，规避现网故障风险。
-- 负责系统代码持续集成（CI）门禁的开发与维护，编写 10 余项自动化看护脚本。
-
-## 科研成果
-
-### **A Novel Earprint: Stimulus-Frequency Otoacoustic Emission for Biometric Recognition**
+## **A Novel Earprint: Stimulus-Frequency Otoacoustic Emission for Biometric Recognition**
 
 **IEEE Transactions on Information Forensics and Security（SCI 一区） · 2023 · 学生一作**
 
 - 以刺激频率耳声发射（SFOAE）作为耳纹生物特征，利用其稳定性和个体差异性服务身份识别。
 - 将三档刺激强度下的 SFOAE 频谱进行特征级融合，再采用线性判别分析（LDA）或多核卷积神经网络，减少同一受试者的波动并提升不同个体间的可分性。
-
-## 项目经历
-
-### 基于混合检索与微调的垂直领域问答系统
-
-2025.10 - 2025.12
-
-- 面向深度学习论文问答搭建数据处理、检索与生成一体化 RAG 流程，降低直接使用大模型时的幻觉与回答失准问题。
-- 使用 LoRA 对 Llama-3-8B 进行轻量化微调，并通过包含思维链的指令数据提升复杂问题回答的逻辑连贯性。
-- 在向量检索基础上加入 BM25，并使用 BGE-Reranker 二次排序；对比固定长度与语义切分策略，提升文档相关性与回答体验。
-- 使用 LlamaIndex 串联流程，并以 Streamlit 实现可查看检索原文的交互界面。
-
-### 简易 Transformer 推理引擎实现
-
-2025.11 - 至今
-
-- 参考 GPT-2 与 Llama 架构，基于 PyTorch 复现自回归生成流程；手动实现 Multi-Head Attention、RoPE 与 RMSNorm 等关键组件。
-- 加载官方权重进行前向推理，验证输出结果与 Hugging Face 官方实现的数值一致性。
-- 实现 KV Cache 复用已计算的 Key 和 Value，减少重复计算；比较 FP16 与 FP32 的推理耗时，以及不同 Batch Size 下的显存和生成速度变化。
-
-### 基于 LangGraph 与 RAG 的垂直领域智能体内容生成助手
-
-2026.01 - 至今
-
-- 基于 LangGraph 构建“检索 - 回忆 - 生成”工作流，并加入内容检查与自动重写环节。
-- 使用 Mem0 或数据库记录用户偏好，实现跨会话的文案风格保持；以 ChromaDB 检索高质量内容作为生成参考。
-- 尝试以 QLoRA 微调 Qwen-1.5B，并使用 4-bit 量化加载节省显存；通过 FastAPI、Uvicorn 与 Streamlit 完成前后端流程。
-
-## 技能与荣誉
-
-- AI 与系统：Transformer、RAG（LangChain / VectorDB）、SFT 微调（PEFT / LoRA）、推理加速（KV Cache）。
-- 开发工具：Python、C++、Java、MySQL、PyTorch、Git、Linux、Unity3D。
-- 科研与语言：以学生一作在 T-IFS（SCI 一区）发表论文；CET-6（482），具备良好的英文文献阅读能力。
-- 荣誉：学业三等奖学金、校级三好学生、科创文体奖学金；五一数学建模联赛、电工杯数学建模比赛、中国虚拟现实大赛、中国机器人及人工智能大赛全国三等奖。
