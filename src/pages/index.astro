@@ -2,13 +2,11 @@
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EntryRow from '../components/EntryRow.astro';
-import ProjectCard from '../components/ProjectCard.astro';
 import { getNoteLocation } from '../utils/notes';
 
 const byTitle = <T extends { data: { title: string } }>(a: T, b: T) => a.data.title.localeCompare(b.data.title, 'zh-CN');
 const blogs = (await getCollection('blog')).sort(byTitle);
 const notes = (await getCollection('notes')).sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
-const projects = (await getCollection('projects')).sort(byTitle);
 const about = await getEntry('about', 'me');
 if (!about) throw new Error('Missing About Me content at src/content/about/me.mdx');
 ---
@@ -17,12 +15,9 @@ if (!about) throw new Error('Missing About Me content at src/content/about/me.md
   <section class="home-hero shell">
     <div>
       <p class="kicker">Hello, I am Boy Jiang</p>
-      <h1 class="hero-mantra" aria-label="Emotional Insensitivity，钝感力。Distraction Resistance，屏蔽力。Rapid Flow-State Entry，快速心流。">
-        <span class="mantra-line" data-mantra-line aria-hidden="true">Emotional Insensitivity · 钝感力</span>
-        <span class="mantra-line" data-mantra-line aria-hidden="true">Distraction Resistance · 屏蔽力</span>
-        <span class="mantra-line" data-mantra-line aria-hidden="true">Rapid Flow-State Entry · 快速心流</span>
+      <h1 class="hero-mantra" aria-label="Emotional Insensitivity. Distraction Resistance. Rapid Flow-State Entry.">
+        <span class="mantra-line" data-mantra-line aria-hidden="true">Emotional Insensitivity. Distraction Resistance. Rapid Flow-State Entry.</span>
       </h1>
-      <p class="hero-lead">记录技术、实践，以及尚未定型的思考。</p>
       <div class="hero-links">
         <a class="pill-link primary" href="/notes/">浏览笔记 <span>→</span></a>
         <a class="pill-link" href="/blog/">阅读博客 <span>↗</span></a>
@@ -83,16 +78,8 @@ if (!about) throw new Error('Missing About Me content at src/content/about/me.md
 
   <section class="home-section shell">
     <div class="section-head">
-      <div><p class="section-kicker">Projects</p><h2>项目</h2></div>
-      <a href="/projects/">查看全部 →</a>
-    </div>
-    <div class="project-grid">{projects.slice(0, 2).map((entry, index) => <ProjectCard entry={entry} index={index} />)}</div>
-  </section>
-
-  <section class="home-section shell">
-    <div class="section-head">
-      <div><p class="section-kicker">About Me</p><h2>关于我</h2></div>
-      <a href="/about/">了解更多 →</a>
+      <div><p class="section-kicker">Resume</p><h2>个人简历</h2></div>
+      <a href="/about/">查看简历 →</a>
     </div>
     <div class="entry-list">
       <EntryRow href="/about/" title={about.data.title} summary={about.data.summary} tags={about.data.tags} />

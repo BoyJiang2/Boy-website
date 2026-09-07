@@ -17,6 +17,7 @@ const projects = defineCollection({
   schema: z.object({
     ...shared,
     github: z.string().url(),
+    published: z.boolean().default(true),
   }),
 });
 

@@ -8,14 +8,13 @@ interface Props {
 }
 
 const {
-  title = "Boy Jiang — Notes, projects and thoughts",
-  description = '记录学习、项目与日常思考的个人网站。',
+  title = '蒋博睿 — 个人简历与技术笔记',
+  description = '蒋博睿的个人简历、学习笔记与技术思考。',
 } = Astro.props;
 const pathname = Astro.url.pathname;
 const primaryNav = [
   { href: '/blog/', label: '博客' },
   { href: '/notes/', label: '笔记' },
-  { href: '/projects/', label: '项目' },
 ];
 const themeGroups = [
   {
@@ -105,7 +104,7 @@ const themeGroups = [
             ))}
           </div>
         </details>
-        <a class:list={['about-link', pathname.startsWith('/about/') && 'active']} href="/about/">关于</a>
+        <a class:list={['about-link', pathname.startsWith('/about/') && 'active']} href="/about/">简历</a>
       </nav>
     </header>
     <main>

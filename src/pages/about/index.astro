@@ -7,21 +7,19 @@ if (!entry) throw new Error('Missing About Me content at src/content/about/me.md
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={`${entry.data.title} — Boy Jiang`} description={entry.data.summary}>
-  <header class="page-head shell"><p class="page-kicker">About</p><h1><span class="page-title-icon" aria-hidden="true">☻</span>关于</h1></header>
+<BaseLayout title={`${entry.data.title} — 蒋博睿`} description={entry.data.summary}>
+  <header class="page-head shell"><p class="page-kicker">Resume</p><h1><span class="page-title-icon" aria-hidden="true">◇</span>个人简历</h1></header>
   <section class="about-grid shell">
     <aside class="about-aside">
-      <div class="about-avatar">BJ</div>
       <strong>{entry.data.name}</strong>
       <p>{entry.data.role}</p>
-      {entry.data.github && <div class="about-links"><a href={entry.data.github}>GitHub ↗</a></div>}
-    </aside>
-    <div class="about-copy">
-      <Content />
       {(entry.data.email || entry.data.github) && <div class="about-links">
         {entry.data.email && <a href={`mailto:${entry.data.email}`}>Email ↗</a>}
         {entry.data.github && <a href={entry.data.github}>GitHub ↗</a>}
       </div>}
+    </aside>
+    <div class="about-copy">
+      <Content />
     </div>
   </section>
 </BaseLayout>

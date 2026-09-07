@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getNoteLocation } from '../../utils/notes';
 
 const blogs = await getCollection('blog');
-const projects = await getCollection('projects');
+const projects = (await getCollection('projects')).filter((entry) => entry.data.published);
 const notes = await getCollection('notes');
 
 const items = [
