@@ -315,6 +315,7 @@ img { max-width: 100%; height: auto; }
 .home-hero::after { width: 190px; height: 190px; right: 20%; bottom: 3%; background: radial-gradient(circle, var(--glow-b) 0, transparent 70%); animation-delay: -4s; }
 @keyframes drift { to { transform: translate3d(28px, -16px, 0) scale(1.08); } }
 .kicker, .section-kicker, .page-kicker { margin: 0 0 13px; color: var(--accent); font-size: .72rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+.home-hero .kicker { font-size: .82rem; }
 .home-hero h1 {
   max-width: none;
   margin: 0;
@@ -326,7 +327,8 @@ img { max-width: 100%; height: auto; }
 .mantra-line { margin-inline: auto; }
 .mantra-line.typing::after { content: ''; display: inline-block; width: 1px; height: .82em; margin-left: .08em; background: currentColor; animation: mantra-caret .75s step-end infinite; }
 @keyframes mantra-caret { 50% { opacity: 0; } }
-.hero-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+.hero-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 44px; }
+.hero-links .pill-link { padding: 12px 19px; font-size: .98rem; }
 .pill-link { display: inline-flex; align-items: center; gap: 16px; padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; font-weight: 650; transition: transform .2s, box-shadow .2s, border-color .2s; }
 .pill-link:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
 .pill-link.primary { background: var(--ink); border-color: var(--ink); color: var(--on-strong); }
