@@ -1,4 +1,4 @@
-const darkThemes = new Set(['professional-dark', 'dark-neon', 'pure-black']);
+const darkThemes = new Set(['professional-dark', 'pure-black']);
 
 const configureMermaid = (mermaid: Awaited<ReturnType<typeof importMermaid>>) => {
   const theme = document.documentElement.dataset.theme ?? 'pure-white';

@@ -18,24 +18,17 @@ const primaryNav = [
 ];
 const themeGroups = [
   {
-    label: '纸面阅读',
+    label: '浅色',
     themes: [
       { value: 'pure-white', label: 'Pure White' },
       { value: 'midnight-gold', label: 'Midnight Gold' },
     ],
   },
   {
-    label: '深色阅读',
+    label: '深色',
     themes: [
       { value: 'professional-dark', label: 'Professional Dark' },
       { value: 'pure-black', label: 'Pure Black' },
-    ],
-  },
-  {
-    label: '特色 / 实验',
-    themes: [
-      { value: 'glassmorphism-light', label: 'Mist Blue' },
-      { value: 'dark-neon', label: 'Dark Neon · 实验' },
     ],
   },
 ];
@@ -54,7 +47,7 @@ const themeGroups = [
     <script is:inline>
       try {
         const saved = localStorage.getItem('boy-jiang-theme-v2');
-        const allowed = ['pure-white', 'midnight-gold', 'professional-dark', 'glassmorphism-light', 'dark-neon', 'pure-black'];
+        const allowed = ['pure-white', 'midnight-gold', 'professional-dark', 'pure-black'];
         document.documentElement.dataset.theme = saved && allowed.includes(saved) ? saved : 'pure-white';
       } catch {}
     </script>
@@ -119,8 +112,6 @@ const themeGroups = [
         'pure-white': '#ffffff',
         'midnight-gold': '#f4f1ea',
         'professional-dark': '#18191c',
-        'glassmorphism-light': '#eaf1f8',
-        'dark-neon': '#07090d',
         'pure-black': '#000000',
       };
       const setTheme = (theme) => {

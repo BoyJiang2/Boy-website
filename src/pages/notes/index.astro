@@ -10,7 +10,6 @@ const categories = ['全部', ...new Set(entries.map((entry) => getNoteLocation(
   <header class="page-head shell">
     <p class="page-kicker">Notes</p>
     <h1><span class="page-title-icon" aria-hidden="true">☘</span>笔记</h1>
-    <p class="section-description">课程、论文和技术主题都归档在这里，可以按分类筛选。</p>
   </header>
   <section class="content-shell shell">
     {entries.length > 0 && <div class="filter-bar">
