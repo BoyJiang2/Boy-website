@@ -5,7 +5,7 @@ import { getNoteLocation } from '../../utils/notes';
 
 const blogs = (await getCollection('blog')).filter((entry) => entry.data.published);
 const projects = (await getCollection('projects')).filter((entry) => entry.data.published);
-const notes = (await getCollection('notes')).filter((entry) => entry.data.published);
+const notes = (await getCollection('notes')).filter((entry) => entry.data.published && getNoteLocation(entry).category === '论文');
 
 const items = [
   ...blogs.map((entry) => ({

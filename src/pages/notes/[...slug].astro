@@ -5,7 +5,7 @@ import ArticleIndex from '../../components/ArticleIndex.astro';
 import { getNoteLocation } from '../../utils/notes';
 import { getArticleWordCount } from '../../utils/article-meta';
 export async function getStaticPaths() {
-  const entries = (await getCollection('notes')).filter((entry) => entry.data.published);
+  const entries = (await getCollection('notes')).filter((entry) => entry.data.published && getNoteLocation(entry).category === '论文');
   return entries.map((entry) => ({ params: { slug: entry.id.split('/').at(-1) }, props: { entry, entries } }));
 }
 const { entry, entries } = Astro.props;

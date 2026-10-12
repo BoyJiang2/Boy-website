@@ -2,11 +2,11 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getNoteLocation } from '../../utils/notes';
-const entries = (await getCollection('notes')).filter((entry) => entry.data.published).sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
+const entries = (await getCollection('notes')).filter((entry) => entry.data.published && getNoteLocation(entry).category === '论文').sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
 const categories = ['全部', ...new Set(entries.map((entry) => getNoteLocation(entry).category))];
 ---
 
-<BaseLayout title="笔记 — Boy Jiang" description="课程、论文与技术学习笔记。">
+<BaseLayout title="笔记 — Boy Jiang" description="论文阅读笔记。">
   <header class="page-head shell">
     <p class="page-kicker">Notes</p>
     <h1><span class="page-title-icon" aria-hidden="true">☘</span>笔记</h1>
