@@ -13,8 +13,7 @@ const {
 } = Astro.props;
 const pathname = Astro.url.pathname;
 const primaryNav = [
-  { href: '/#about', label: '关于我' },
-  { href: '/#publications', label: '论文' },
+  { href: '/notes/', label: '笔记' },
 ];
 const themeGroups = [
   {
@@ -71,8 +70,8 @@ const themeGroups = [
       </a>
       <nav class="header-nav" aria-label="主导航">
         <span class="primary-nav-links">
-          {primaryNav.map((item, index) => (
-            <a class:list={[pathname === '/' && index === 0 && 'active']} href={item.href}>{item.label}</a>
+          {primaryNav.map((item) => (
+            <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}>{item.label}</a>
           ))}
         </span>
         <span class="header-divider" aria-hidden="true"></span>
@@ -101,7 +100,7 @@ const themeGroups = [
             ))}
           </div>
         </details>
-        <a class="about-link" href="mailto:elboy@foxmail.com">联系</a>
+        <a class:list={['about-link', pathname === '/' && 'active']} href="/#about">关于</a>
       </nav>
     </header>
     <main>

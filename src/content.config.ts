@@ -30,7 +30,7 @@ const notes = defineCollection({
     title: z.string().default('Untitled note'),
     summary: z.string().default(''),
     tags: z.array(z.string()).default([]),
-    published: z.boolean().default(false),
+    published: z.boolean().default(true),
   }),
 });
 
