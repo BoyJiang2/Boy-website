@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+export const prerender = true;
+export async function getStaticPaths() {
+  return (await getCollection('blog')).filter((entry) => entry.data.published).map((entry) => ({
+    params: { slug: entry.id },
+    props: { destination: `/blogs/${entry.id}/` },
+  }));
+}
+const { destination } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boy Jiang</title>
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={new URL(destination, Astro.site ?? Astro.url)} />
+  </head>
+  <body><a href={destination}>前往文章</a></body>
+</html>

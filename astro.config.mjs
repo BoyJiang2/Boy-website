@@ -8,10 +8,6 @@ const remarkPlugins = [remarkMath, remarkStrongInlineCode];
 
 export default defineConfig({
   site: process.env.ASTRO_SITE ?? 'https://boy-website.boyjiang2.workers.dev',
-  redirects: {
-    '/blog': '/blogs',
-    '/blog/[...slug]': '/blogs/[...slug]',
-  },
   integrations: [mdx()],
   markdown: {
     remarkPlugins,
