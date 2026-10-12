@@ -315,7 +315,7 @@ img { max-width: 100%; height: auto; }
 .home-hero::after { width: 190px; height: 190px; right: 20%; bottom: 3%; background: radial-gradient(circle, var(--glow-b) 0, transparent 70%); animation-delay: -4s; }
 @keyframes drift { to { transform: translate3d(28px, -16px, 0) scale(1.08); } }
 .kicker, .section-kicker, .page-kicker { margin: 0 0 13px; color: var(--accent); font-size: .72rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
-.profile-home { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: clamp(48px, 9vw, 130px); align-items: center; min-height: 560px; padding-block: 96px 86px; }
+.profile-home { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 270px); gap: clamp(48px, 9vw, 130px); align-items: center; min-height: 560px; padding-block: 96px 86px; }
 .profile-home-copy { max-width: 640px; }
 .profile-home h1 { margin: 0; font: 500 clamp(3.3rem, 7vw, 6.5rem)/.94 var(--serif); letter-spacing: -.075em; }
 .profile-home h1 span { display: block; margin-top: 14px; color: var(--muted); font: 500 clamp(1.25rem, 2.3vw, 1.8rem)/1 var(--sans); letter-spacing: .02em; }
@@ -325,7 +325,7 @@ img { max-width: 100%; height: auto; }
 .profile-focus span { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: .72rem; }
 .profile-home-links { display: flex; gap: 21px; margin-top: 32px; color: var(--accent); font-size: .92rem; font-weight: 700; }
 .profile-home-links a:hover, .publication-links a:hover, .publication-title a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.profile-photo { width: min(100%, 340px); margin: 0; justify-self: end; }
+.profile-photo { width: min(100%, 270px); margin: 0; justify-self: end; }
 .profile-photo img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center 25%; border-radius: 18px; box-shadow: var(--shadow); }
 .publications-section { padding-block: 74px 104px; border-top: 1px solid var(--line); }
 .publication-heading h2 { margin: 0; font: 500 clamp(2.3rem, 4vw, 3.75rem)/1.08 var(--serif); letter-spacing: -.05em; }
@@ -558,7 +558,7 @@ img { max-width: 100%; height: auto; }
   .theme-toggle-knob svg { width: 13px; height: 13px; }
   .profile-home { grid-template-columns: 1fr; gap: 36px; min-height: auto; padding-block: 64px 70px; }
   .profile-home h1 { font-size: clamp(3rem, 15vw, 4.4rem); }
-  .profile-photo { width: min(72vw, 300px); justify-self: start; }
+  .profile-photo { width: min(66vw, 240px); justify-self: start; }
   .publications-section { padding-block: 64px 80px; }
   .home-hero { min-height: auto; grid-template-columns: 1fr; gap: 45px; padding-block: 72px; }
   .home-hero h1 { font-size: clamp(.88rem, 3vw, 1.45rem); }
