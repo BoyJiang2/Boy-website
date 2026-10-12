@@ -16,21 +16,11 @@ const primaryNav = [
   { href: '/notes/', label: '笔记' },
   { href: '/blogs/', label: '博客' },
 ];
-const themeGroups = [
-  {
-    label: '浅色',
-    themes: [
-      { value: 'pure-white', label: 'Pure White' },
-      { value: 'midnight-gold', label: 'Midnight Gold' },
-    ],
-  },
-  {
-    label: '深色',
-    themes: [
-      { value: 'professional-dark', label: 'Professional Dark' },
-      { value: 'pure-black', label: 'Pure Black' },
-    ],
-  },
+const themes = [
+  { value: 'pure-white', label: 'Pure White' },
+  { value: 'midnight-gold', label: 'Midnight Gold' },
+  { value: 'professional-dark', label: 'Professional Dark' },
+  { value: 'pure-black', label: 'Pure Black' },
 ];
 ---
 
@@ -79,18 +69,12 @@ const themeGroups = [
             </span>
           </summary>
           <div class="theme-panel">
-            <p>选择阅读氛围</p>
-            {themeGroups.map((group) => (
-              <div class="theme-group" role="group" aria-label={`${group.label}主题`}>
-                <span class="theme-group-label">{group.label}</span>
-                {group.themes.map((theme) => (
-                  <button type="button" data-theme-value={theme.value}>
-                    <span class={`theme-swatch ${theme.value}`} aria-hidden="true"></span>
-                    <strong>{theme.label}</strong>
-                    <span class="theme-check" aria-hidden="true">✓</span>
-                  </button>
-                ))}
-              </div>
+            {themes.map((theme) => (
+              <button type="button" data-theme-value={theme.value}>
+                <span class={`theme-swatch ${theme.value}`} aria-hidden="true"></span>
+                <strong>{theme.label}</strong>
+                <span class="theme-check" aria-hidden="true">✓</span>
+              </button>
             ))}
           </div>
         </details>

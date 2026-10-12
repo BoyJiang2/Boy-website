@@ -214,9 +214,6 @@ img { max-width: 100%; height: auto; }
 .theme-picker summary:hover .theme-toggle-track,
 .theme-picker[open] .theme-toggle-track { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
 .theme-panel { position: absolute; top: calc(100% + 13px); right: 0; width: 286px; padding: 13px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-glass); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
-.theme-panel > p { margin: 3px 8px 9px; color: var(--subtle); font-size: .67rem; letter-spacing: .08em; }
-.theme-group + .theme-group { margin-top: 9px; padding-top: 10px; border-top: 1px solid var(--line); }
-.theme-group-label { display: block; margin: 0 8px 4px; color: var(--subtle); font-size: .65rem; font-weight: 750; letter-spacing: .1em; }
 .theme-panel button { width: 100%; display: grid; grid-template-columns: 38px minmax(0, 1fr) 18px; gap: 10px; align-items: center; padding: 9px 8px; border: 0; border-radius: 11px; background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
 .theme-panel button:hover { background: var(--panel-hover); }
 .theme-panel strong { min-width: 0; overflow: hidden; color: var(--ink); font-size: .74rem; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
