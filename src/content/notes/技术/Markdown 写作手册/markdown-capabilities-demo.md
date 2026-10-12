@@ -59,11 +59,11 @@ const describe = (note: Note) => `${note.title} · ${note.tags.join(' / ')}`;
 
 ## 图片
 
-下面这张 SVG 存放在 `public/uploads/`，与通过在线编辑器上传图片后的引用方式一致：
+下面这张 SVG 就放在本文同目录的 `assets/` 中，Markdown 使用相对路径即可引用：
 
-![一篇笔记从 Markdown 到网页的流程图](/uploads/demo-note-diagram.svg)
+![一篇笔记从 Markdown 到网页的流程图](./assets/demo-note-diagram.svg)
 
-图片前后的正文、标题和目录可以自然排列。替换图片时，只需要把文件上传到附件目录，然后复制生成的路径。
+图片前后的正文、标题和目录可以自然排列。替换图片时，将新文件放入 `assets/`，再填写相对路径即可。
 
 ## Mermaid 图表
 

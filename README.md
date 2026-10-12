@@ -50,7 +50,24 @@ tags: [Transformer, Attention]
 - 正文中的 `## / ### / ####` 会自动生成文章目录。
 - 公式、代码、引用、表格和图片示例见 `src/content/notes/技术/Markdown 写作手册/markdown-capabilities-demo.md`。
 
-图片和附件放在 `public/uploads/`：
+### 图片与附件
+
+推荐将文章图片放在文章同目录的 `assets/` 中，图片会由 Astro 自动读取、打包并部署。这样移动或重命名文章时，图片也会一起管理：
+
+```text
+src/content/notes/论文/MLSys/kv-cache.md
+src/content/notes/论文/MLSys/assets/kv-cache-layout.png
+```
+
+在 Markdown 中使用相对路径：
+
+```md
+![KV Cache 布局](./assets/kv-cache-layout.png)
+```
+
+建议图片文件使用小写英文、数字和连字符命名；截图优先使用 WebP 或 PNG。图片会保持原始清晰度，并自动适应文章宽度。
+
+跨文章共用的图片，以及 PDF、压缩包等下载附件，仍放在 `public/uploads/`：
 
 ```md
 ![图片说明](/uploads/example.png)
