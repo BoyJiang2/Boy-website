@@ -9,7 +9,10 @@ const shared = {
 
 const blog = defineCollection({
   loader: glob({ base: './src/content/blogs', pattern: '**/*.{md,mdx}' }),
-  schema: z.object(shared),
+  schema: z.object({
+    ...shared,
+    published: z.boolean().default(false),
+  }),
 });
 
 const projects = defineCollection({
@@ -23,7 +26,12 @@ const projects = defineCollection({
 
 const notes = defineCollection({
   loader: glob({ base: './src/content/notes', pattern: '**/*.{md,mdx}' }),
-  schema: z.object(shared),
+  schema: z.object({
+    title: z.string().default('Untitled note'),
+    summary: z.string().default(''),
+    tags: z.array(z.string()).default([]),
+    published: z.boolean().default(false),
+  }),
 });
 
 const about = defineCollection({

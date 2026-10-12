@@ -1,89 +1,49 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import EntryRow from '../components/EntryRow.astro';
-import { getNoteLocation } from '../utils/notes';
-
-const byTitle = <T extends { data: { title: string } }>(a: T, b: T) => a.data.title.localeCompare(b.data.title, 'zh-CN');
-const blogs = (await getCollection('blog')).sort(byTitle);
-const notes = (await getCollection('notes')).sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
-const about = await getEntry('about', 'me');
-if (!about) throw new Error('Missing About Me content at src/content/about/me.mdx');
 ---
 
-<BaseLayout>
-  <section class="home-hero shell">
-    <div>
-      <p class="kicker">Hello, I am Boy Jiang</p>
-      <h1 class="hero-mantra" aria-label="Emotional Insensitivity. Distraction Resistance. Rapid Flow-State Entry.">
-        <span class="mantra-line" data-mantra-line aria-hidden="true">Emotional Insensitivity. Distraction Resistance.</span>
-        <span class="mantra-line" data-mantra-line aria-hidden="true">Rapid Flow-State Entry.</span>
-      </h1>
-      <div class="hero-links">
-        <a class="pill-link primary" href="/notes/">浏览笔记 <span>→</span></a>
-        <a class="pill-link" href="/blog/">阅读博客 <span>↗</span></a>
+<BaseLayout title="蒋博睿 — MLSys" description="蒋博睿，中国科学院大学硕士生，聚焦 MLSys。">
+  <section class="profile-home shell" id="about">
+    <div class="profile-home-copy">
+      <p class="page-kicker">About Me</p>
+      <h1>蒋博睿 <span>Boy Jiang</span></h1>
+      <p class="profile-home-role">硕士生 · 中国科学院大学上海微系统与信息技术研究所</p>
+      <p class="profile-home-intro">我关注机器学习系统（MLSys），尤其是大模型推理与服务系统中的性能、资源调度和工程落地问题。</p>
+      <div class="profile-focus" aria-label="研究方向">
+        <span>MLSys</span>
+        <span>LLM Inference</span>
+        <span>Serving Systems</span>
+      </div>
+      <div class="profile-home-links">
+        <a href="mailto:elboy@foxmail.com">Email ↗</a>
+        <a href="https://github.com/BoyJiang2" rel="noreferrer">GitHub ↗</a>
       </div>
     </div>
+    <figure class="profile-photo">
+      <img src="/brand/borui-jiang.jpg" alt="蒋博睿" width="744" height="1028" />
+    </figure>
   </section>
 
-  <script is:inline>
-    const mantraLines = [...document.querySelectorAll('[data-mantra-line]')];
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const texts = mantraLines.map((line) => line.textContent ?? '');
-      mantraLines.forEach((line) => { line.textContent = ''; });
-      const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
-
-      (async () => {
-        for (let index = 0; index < mantraLines.length; index += 1) {
-          const line = mantraLines[index];
-          line.classList.add('typing');
-          for (const character of texts[index]) {
-            line.textContent += character;
-            await wait(45);
-          }
-          if (index < mantraLines.length - 1) {
-            await wait(120);
-            line.classList.remove('typing');
-          }
-        }
-        await wait(1200);
-        mantraLines.at(-1)?.classList.remove('typing');
-      })();
-    }
-  </script>
-
-  <section class="home-section shell">
-    <div class="section-head">
-      <div><p class="section-kicker">Blogs</p><h2>博客</h2></div>
-      <a href="/blog/">查看全部 →</a>
+  <section class="publications-section shell" id="publications">
+    <div class="publication-heading">
+      <p class="section-kicker">Selected Publications</p>
+      <h2>科研成果</h2>
     </div>
-    <div class="entry-list">
-      {blogs.slice(0, 3).map((entry) => (
-        <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />
-      ))}
-    </div>
-  </section>
-
-  <section class="home-section shell">
-    <div class="section-head">
-      <div><p class="section-kicker">Notes</p><h2>笔记</h2></div>
-      <a href="/notes/">查看全部 →</a>
-    </div>
-    <div class="entry-list">
-      {notes.slice(0, 4).map((entry) => {
-        const location = getNoteLocation(entry);
-        return <EntryRow href={`/notes/${location.slug}/`} eyebrow={`${location.category} · ${location.series}`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />;
-      })}
-    </div>
-  </section>
-
-  <section class="home-section shell">
-    <div class="section-head">
-      <div><p class="section-kicker">About Me</p><h2>关于我</h2></div>
-      <a href="/about/">了解更多 →</a>
-    </div>
-    <div class="entry-list">
-      <EntryRow href="/about/" title={about.data.title} summary={about.data.summary} tags={about.data.tags} />
-    </div>
+    <ol class="publication-list">
+      <li class="publication-item">
+        <p class="publication-title"><a href="https://doi.org/10.1109/TIFS.2023.3309101" rel="noreferrer">A Novel Earprint: Stimulus-Frequency Otoacoustic Emission for Biometric Recognition</a></p>
+        <p class="publication-authors">Yin Liu, <strong>Borui Jiang</strong>, Hongqing Liu, Yu Zhao, Fen Xiong, Yi Zhou</p>
+        <p class="publication-venue">IEEE Transactions on Information Forensics and Security, vol. 18, pp. 5484–5494, 2023 · SCI 一区</p>
+        <p class="publication-description">以刺激频率耳声发射（SFOAE）作为耳纹生物特征，通过多刺激强度下的频谱融合与判别建模提升身份识别的稳定性和个体可分性。</p>
+        <p class="publication-links"><a href="https://doi.org/10.1109/TIFS.2023.3309101" rel="noreferrer">DOI ↗</a></p>
+      </li>
+      <li class="publication-item">
+        <p class="publication-title"><a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=CYeGsX4AAAAJ&citation_for_view=CYeGsX4AAAAJ:u-x6o8ySG0sC" rel="noreferrer">Ergonomic Load Differentiates Pediatric and Adult Physiotherapy</a></p>
+        <p class="publication-authors">Yongji Wu, Shuang Liu, Junjie Zhang, <strong>Borui Jiang</strong>, Haitao Wang, Min Hu</p>
+        <p class="publication-venue">Proceedings of the 3rd International Conference on Human Machine Interaction (ICHMI), pp. 74–80, 2023</p>
+        <p class="publication-description">比较成人与儿童物理治疗中的人体工学负荷，结合惯性传感与 REBA 评估量化治疗师的姿势风险。</p>
+        <p class="publication-links"><a href="https://doi.org/10.1145/3604383.3604386" rel="noreferrer">DOI ↗</a> <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=CYeGsX4AAAAJ&citation_for_view=CYeGsX4AAAAJ:u-x6o8ySG0sC" rel="noreferrer">Google Scholar ↗</a></p>
+      </li>
+    </ol>
   </section>
 </BaseLayout>

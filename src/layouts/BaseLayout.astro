@@ -8,13 +8,13 @@ interface Props {
 }
 
 const {
-  title = '蒋博睿 — 关于我与技术笔记',
-  description = '蒋博睿的个人介绍、学习笔记与技术思考。',
+  title = '蒋博睿 — MLSys',
+  description = '蒋博睿的个人介绍与科研成果。',
 } = Astro.props;
 const pathname = Astro.url.pathname;
 const primaryNav = [
-  { href: '/blog/', label: '博客' },
-  { href: '/notes/', label: '笔记' },
+  { href: '/#about', label: '关于我' },
+  { href: '/#publications', label: '论文' },
 ];
 const themeGroups = [
   {
@@ -71,14 +71,11 @@ const themeGroups = [
       </a>
       <nav class="header-nav" aria-label="主导航">
         <span class="primary-nav-links">
-          {primaryNav.map((item) => (
-            <a class:list={[pathname.startsWith(item.href) && 'active']} href={item.href}>{item.label}</a>
+          {primaryNav.map((item, index) => (
+            <a class:list={[pathname === '/' && index === 0 && 'active']} href={item.href}>{item.label}</a>
           ))}
         </span>
         <span class="header-divider" aria-hidden="true"></span>
-        <a class:list={['search-link', pathname.startsWith('/search/') && 'active']} href="/search/" aria-label="搜索">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
-        </a>
         <details class="theme-picker">
           <summary aria-label="选择主题" title="选择主题">
             <span class="theme-toggle-track" aria-hidden="true">
@@ -104,7 +101,7 @@ const themeGroups = [
             ))}
           </div>
         </details>
-        <a class:list={['about-link', pathname.startsWith('/about/') && 'active']} href="/about/">关于</a>
+        <a class="about-link" href="mailto:elboy@foxmail.com">联系</a>
       </nav>
     </header>
     <main>

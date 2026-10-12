@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getNoteLocation } from '../../utils/notes';
-const entries = (await getCollection('notes')).sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
+const entries = (await getCollection('notes')).filter((entry) => entry.data.published).sort((a, b) => a.id.localeCompare(b.id, 'zh-CN'));
 const categories = ['全部', ...new Set(entries.map((entry) => getNoteLocation(entry).category))];
 ---
 
@@ -13,10 +13,10 @@ const categories = ['全部', ...new Set(entries.map((entry) => getNoteLocation(
     <p class="section-description">课程、论文和技术主题都归档在这里，可以按分类筛选。</p>
   </header>
   <section class="content-shell shell">
-    <div class="filter-bar">
+    {entries.length > 0 && <div class="filter-bar">
       {categories.map((category, index) => <button class:list={['filter-button', index === 0 && 'active']} data-filter={category}>{category}</button>)}
-    </div>
-    <div class="entry-list" id="notes-list">
+    </div>}
+    {entries.length > 0 ? <div class="entry-list" id="notes-list">
       {entries.map((entry) => {
         const location = getNoteLocation(entry);
         return (
@@ -27,7 +27,7 @@ const categories = ['全部', ...new Set(entries.map((entry) => getNoteLocation(
           </article>
         );
       })}
-    </div>
+    </div> : <div class="empty-state">笔记正在整理，暂不公开。</div>}
   </section>
   <script is:inline>
     const buttons = [...document.querySelectorAll('[data-filter]')];
