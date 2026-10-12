@@ -325,8 +325,13 @@ img { max-width: 100%; height: auto; }
 .profile-mantra .mantra-line { width: auto; margin-inline: 0; }
 .profile-focus { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
 .profile-focus span { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: .72rem; }
-.profile-home-links { display: flex; gap: 21px; margin-top: 32px; color: var(--accent); font-size: .92rem; font-weight: 700; }
-.profile-home-links a:hover, .publication-links a:hover, .publication-title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.profile-social-links { display: flex; flex-wrap: wrap; margin-top: 30px; }
+.profile-social-links a { display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-left: 1px solid var(--line); color: var(--body-ink); font-size: .84rem; font-weight: 650; transition: color .18s ease, background .18s ease; }
+.profile-social-links a:first-child { padding-left: 0; border-left: 0; }
+.profile-social-links a:hover { color: var(--accent); }
+.profile-social-links svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; }
+.profile-social-links a:last-child svg { fill: currentColor; stroke: none; }
+.publication-links a:hover, .publication-title a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .profile-photo { width: min(100%, 270px); margin: 0; justify-self: end; }
 .profile-photo img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center 25%; border-radius: 18px; box-shadow: var(--shadow); }
 .publications-section { padding-block: 74px 104px; border-top: 1px solid var(--line); }
@@ -560,6 +565,8 @@ img { max-width: 100%; height: auto; }
   .theme-toggle-knob svg { width: 13px; height: 13px; }
   .profile-home { grid-template-columns: 1fr; gap: 36px; min-height: auto; padding-block: 64px 70px; }
   .profile-home h1 { font-size: clamp(2rem, 10vw, 3rem); }
+  .profile-social-links a { padding-inline: 10px; }
+  .profile-social-links a:first-child { padding-left: 0; }
   .profile-photo { width: min(66vw, 240px); justify-self: start; }
   .publications-section { padding-block: 64px 80px; }
   .home-hero { min-height: auto; grid-template-columns: 1fr; gap: 45px; padding-block: 72px; }
