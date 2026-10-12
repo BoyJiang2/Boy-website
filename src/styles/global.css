@@ -318,7 +318,7 @@ img { max-width: 100%; height: auto; }
 .profile-home { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 270px); gap: clamp(48px, 9vw, 130px); align-items: center; min-height: 560px; padding-block: 96px 86px; }
 .profile-home-copy { max-width: 640px; }
 .profile-home h1 { margin: 0; font: 500 clamp(2.4rem, 4.7vw, 4.5rem)/.98 var(--serif); letter-spacing: -.055em; }
-.profile-home h1 span { display: inline; margin-left: .28em; color: var(--muted); font: 500 1em/.98 var(--sans); letter-spacing: .01em; }
+.profile-home h1 span { display: inline; margin-left: .28em; color: var(--muted); font: 500 1em/.98 var(--serif); letter-spacing: -.055em; }
 .profile-home-role { margin: 28px 0 0; color: var(--ink); font: 500 1rem/1.55 var(--sans); }
 .profile-home-intro { max-width: 590px; margin: 18px 0 0; color: var(--body-ink); font-size: 1.04rem; }
 .profile-mantra { margin: 26px 0 0; color: var(--ink); font: 500 clamp(1.04rem, 1.8vw, 1.48rem)/1.26 var(--serif); letter-spacing: -.025em; }
