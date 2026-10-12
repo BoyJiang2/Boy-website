@@ -12,7 +12,7 @@ const entries = (await getCollection('blog')).filter((entry) => entry.data.publi
   </header>
   <section class="content-shell shell">
     {entries.length > 0 ? <div class="entry-list">
-      {entries.map((entry) => <EntryRow href={`/blog/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />)}
+      {entries.map((entry) => <EntryRow href={`/blogs/${entry.id}/`} title={entry.data.title} summary={entry.data.summary} tags={entry.data.tags} />)}
     </div> : <div class="empty-state">文章正在整理，稍后发布。</div>}
   </section>
 </BaseLayout>

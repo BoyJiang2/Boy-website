@@ -15,7 +15,7 @@ const tree = [{
   icon: '✦',
   children: entries.map((item) => ({
     label: item.data.title,
-    href: `/blog/${item.id}/`,
+    href: `/blogs/${item.id}/`,
     current: item.id === entry.id,
   })),
   open: true,
@@ -24,7 +24,7 @@ const tree = [{
 
 <BaseLayout title={`${entry.data.title} — Boy Jiang`} description={entry.data.summary}>
   <article class="article-wrap reading-article">
-    <a class="article-back" href="/blog/">← 返回博客</a>
+    <a class="article-back" href="/blogs/">← 返回博客</a>
     <header class="article-header">
       <h1>{entry.data.title}</h1>
       <p>{entry.data.summary}</p>
