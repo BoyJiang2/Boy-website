@@ -9,6 +9,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h1>蒋博睿 <span>Boy Jiang</span></h1>
       <p class="profile-home-role">硕士生 · 中国科学院大学上海微系统与信息技术研究所</p>
       <p class="profile-home-intro">我关注机器学习系统（MLSys），尤其是大模型推理与服务系统中的性能、资源调度和工程落地问题。</p>
+      <p class="profile-mantra" aria-label="Emotional Insensitivity. Distraction Resistance. Rapid Flow-State Entry.">
+        <span class="mantra-line" data-mantra-line aria-hidden="true">Emotional Insensitivity. Distraction Resistance.</span>
+        <span class="mantra-line" data-mantra-line aria-hidden="true">Rapid Flow-State Entry.</span>
+      </p>
       <div class="profile-focus" aria-label="研究方向">
         <span>MLSys</span>
         <span>LLM Inference</span>
@@ -23,6 +27,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <img src="/brand/borui-jiang.jpg" alt="蒋博睿" width="744" height="1028" />
     </figure>
   </section>
+
+  <script is:inline>
+    const mantraLines = [...document.querySelectorAll('[data-mantra-line]')];
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const texts = mantraLines.map((line) => line.textContent ?? '');
+      mantraLines.forEach((line) => { line.textContent = ''; });
+      const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+
+      (async () => {
+        for (let index = 0; index < mantraLines.length; index += 1) {
+          const line = mantraLines[index];
+          line.classList.add('typing');
+          for (const character of texts[index]) {
+            line.textContent += character;
+            await wait(35);
+          }
+          if (index < mantraLines.length - 1) {
+            await wait(120);
+            line.classList.remove('typing');
+          }
+        }
+        await wait(1200);
+        mantraLines.at(-1)?.classList.remove('typing');
+      })();
+    }
+  </script>
 
   <section class="publications-section shell" id="publications">
     <div class="publication-heading">
